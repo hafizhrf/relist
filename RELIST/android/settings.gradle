@@ -1,0 +1,3 @@
+rootProject.name = 'RELIST'
+
+include ':app'
