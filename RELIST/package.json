@@ -7,6 +7,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "es6-promise": "^4.2.2",
+    "isomorphic-fetch": "^2.2.1",
     "native-base": "^2.3.7",
     "react": "16.2.0",
     "react-native": "0.52.0",

@@ -30,6 +30,8 @@ export default class Formlogin extends Component{
                     placeholder='Username'
                     underlineColorAndroid='transparent'
                     returnKeyType="next"
+                    autoCapitalize="none"
+                    autoCorrect={false}
                     onSubmitEditing={() => this.passInput.focus()}
                     style={styles.input}
                 />
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0,
     },
     submit:{
-        paddingTop: 200,
+        paddingTop: 150,
         marginLeft: 250,
         marginRight: 20,
 
