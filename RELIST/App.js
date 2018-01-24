@@ -8,17 +8,16 @@ import {
   TouchableOpacity,
   polyfills
 } from 'react-native';
-import Login from './source/login/Login';
-import Apidemo from './utilities/api/Apidemo';
+
+import Routes from './source/Routes';
+
 import { StackNavigator, NavigationAction, TabNavigator } from 'react-navigation';
 
-const Navigation = TabNavigator({
-  login:{
-    screen:Login,
+const Navigation = StackNavigator({
+  routes:{
+    screen:Routes,
   },
-  api:{
-    screen:Apidemo,
-  }
+  
 })
 
 export default Navigation;

@@ -12,13 +12,13 @@ import {
 import Formlogin from './Formlogin';
 import { Actions } from 'react-native-router-flux';
 
-export default class Login extends Component{
-    static navigationOptions = {
+export default class Signup extends Component{
+    static navigationOptions ={
     header: null,
     gesturesEnabled: false
 }
-    signup(){
-        Actions.signup()
+    login(){
+        Actions.pop()
     }
 
     render(){
@@ -31,14 +31,14 @@ export default class Login extends Component{
                     />
                    <View style={styles.logocon}>
                         <Text style={styles.texts}>
-                            Login
+                            Sign Up
                         </Text>
                     </View>
                     <View style={styles.form}>
-                        <Formlogin type="Login" />
-                        <View style={styles.signUpTextCont}>
-                            <Text style={styles.signUpText}>Doesn't have an account?</Text>
-                            <TouchableOpacity onPress={this.signup}><Text style={styles.signUpButton}> Sign Up</Text></TouchableOpacity>
+                        <Formlogin type="Sign Up" />
+                        <View style={styles.signInTextCont}>
+                            <Text style={styles.signInText}>Already have an account?</Text>
+                            <TouchableOpacity onPress={this.login}><Text style={styles.signInButton}> Sign In</Text></TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -62,18 +62,18 @@ const styles = StyleSheet.create({
         fontSize: 40,
         textAlign: 'center',
     },
-    signUpTextCont: {
+    signInTextCont: {
         flexGrow: 1,
         alignItems: 'flex-end',
         justifyContent: 'center',
         paddingVertical: 16,
         flexDirection: 'row'
     },
-    signUpText: {
+    signInText: {
        color: 'rgba(255,255,255,0.6)',
        fontSize: 16
     },
-    signUpButton: {
+    signInButton: {
         color: '#FFF',
         fontSize: 16,
         fontWeight: '500'

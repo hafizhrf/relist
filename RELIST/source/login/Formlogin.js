@@ -6,28 +6,22 @@ import {
     TextInput,
     Keyboard,
     Button,
-    TouchableNativeFeedback 
+    KeyboardAvoidingView,
+    TouchableNativeFeedback,
+    TouchableOpacity
 } from 'react-native';
 export default class Formlogin extends Component{
     static navigationOptions ={
         header: null
     }
-    
-
-
-    constructor(){
-        super()
-        this.state={
-            showMe:true
-        }
-       
-    }
 
     render(){
         return(
             <View style={styles.container}>
+                <KeyboardAvoidingView behavior="padding">
                 <TextInput
                     placeholder='Username'
+                    placeholderTextColor='#fff'
                     underlineColorAndroid='transparent'
                     returnKeyType="next"
                     autoCapitalize="none"
@@ -37,18 +31,18 @@ export default class Formlogin extends Component{
                 />
                 <TextInput
                     placeholder='Password'
+                    placeholderTextColor='#fff'
                     underlineColorAndroid='transparent'
                     returnKeyType="go"
                     secureTextEntry
+                    autoCapitalize="none"
                     style={styles.inputpass}
                     ref={(input) => this.passInput =input}
                 />
-                <View style={styles.submit}>
-                    <Button
-                        title="REGISTER"
-                        color="#47baef"
-                    />
-                </View>
+                </KeyboardAvoidingView>
+                <TouchableOpacity style={styles.button}>
+                    <Text style={styles.buttonText}>{this.props.type}</Text>
+                </TouchableOpacity>
             </View>
             
         );
@@ -57,27 +51,39 @@ export default class Formlogin extends Component{
 
 const styles = StyleSheet.create({
     container: {
+        alignItems: 'center'
     },
     input: {
-        backgroundColor: 'white',
-        paddingHorizontal: 10,
-        borderBottomWidth: 0,
-        marginLeft: 16,
-        marginBottom: 5,
-        marginRight:16,
-        marginTop: 150
+        width: 300,
+        color: '#FFF',
+        backgroundColor: '#2196f3',
+        borderRadius: 25,
+        paddingHorizontal: 16,
+        marginLeft: 20,
+        marginRight: 20,
+        marginTop: 50
     },
     inputpass: {
-        backgroundColor: 'white',
-        marginLeft: 16,
-        marginRight: 16,
-        paddingHorizontal: 10,
-        borderBottomWidth: 0,
+        width: 300,
+        color: '#fff',
+        backgroundColor: '#2196f3',
+        borderRadius: 25,
+        paddingHorizontal: 16,
+        marginVertical: 10,
+        marginLeft: 20,
+        marginRight: 20
     },
-    submit:{
-        paddingTop: 150,
-        marginLeft: 250,
-        marginRight: 20,
-
+    button:{
+        width: 300,
+        backgroundColor: '#2196f3',
+        borderRadius: 10,
+        marginVertical: 10,
+        paddingVertical: 13,
+    },
+    buttonText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: '500',
     }
 });
