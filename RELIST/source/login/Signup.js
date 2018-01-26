@@ -9,7 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-import Formlogin from './Formlogin';
+import Formsignup from './Formsignup';
 import { Actions } from 'react-native-router-flux';
 
 export default class Signup extends Component{
@@ -35,7 +35,7 @@ export default class Signup extends Component{
                         </Text>
                     </View>
                     <View style={styles.form}>
-                        <Formlogin type="Sign Up" />
+                        <Formsignup type="Sign Up" />
                         <View style={styles.signInTextCont}>
                             <Text style={styles.signInText}>Already have an account?</Text>
                             <TouchableOpacity onPress={this.login}><Text style={styles.signInButton}> Sign In</Text></TouchableOpacity>

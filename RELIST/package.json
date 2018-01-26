@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "es6-promise": "^4.2.2",
     "isomorphic-fetch": "^2.2.1",
     "native-base": "^2.3.7",

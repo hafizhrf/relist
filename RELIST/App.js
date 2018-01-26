@@ -11,13 +11,13 @@ import {
 
 import Routes from './source/Routes';
 
-import { StackNavigator, NavigationAction, TabNavigator } from 'react-navigation';
+
+import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation';
 
 const Navigation = StackNavigator({
-  routes:{
+  routes: {
     screen:Routes,
   },
-  
 })
 
 export default Navigation;

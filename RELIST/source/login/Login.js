@@ -12,7 +12,9 @@ import {
 import Formlogin from './Formlogin';
 import { Actions } from 'react-native-router-flux';
 
+
 export default class Login extends Component{
+
     static navigationOptions = {
     header: null,
     gesturesEnabled: false

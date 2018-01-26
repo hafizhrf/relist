@@ -10,15 +10,9 @@ import {
     TouchableNativeFeedback,
     TouchableOpacity
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-
-export default class Formlogin extends Component{
+export default class Formsignup extends Component{
     static navigationOptions ={
         header: null
-    }
-
-    index(){
-        Actions.index()
     }
 
     render(){
@@ -46,7 +40,7 @@ export default class Formlogin extends Component{
                     ref={(input) => this.passInput =input}
                 />
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button} onPress={this.index}>
+                <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}>{this.props.type}</Text>
                 </TouchableOpacity>
             </View>
