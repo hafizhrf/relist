@@ -11,7 +11,7 @@ import {
 
 import Formlogin from './Formlogin';
 import { Actions } from 'react-native-router-flux';
-
+import { Container } from 'native-base';
 
 export default class Login extends Component{
 
@@ -25,10 +25,10 @@ export default class Login extends Component{
 
     render(){
         return(
-            <ImageBackground source={require('../image/bg.jpg')} style={styles.container}>
-                <View style={styles.marg}> 
+            
+                <Container style={styles.marg}> 
                 <StatusBar 
-                    backgroundColor= "#b6e0ec"
+                    backgroundColor= "rgb(48,56,58)"
                     barStyle= "light-content"
                     />
                    <View style={styles.logocon}>
@@ -43,8 +43,8 @@ export default class Login extends Component{
                             <TouchableOpacity onPress={this.signup}><Text style={styles.signUpButton}> Sign Up</Text></TouchableOpacity>
                         </View>
                     </View>
-                </View>
-            </ImageBackground>
+                </Container>
+            
         );
     }
 }
@@ -52,13 +52,13 @@ export default class Login extends Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     marg: {
-        marginBottom: 100
+        flex: 1,
+        backgroundColor: 'rgb(48,56,58)',
     },
     texts: {
-        color: '#757575',
+        color: 'rgb(160,243,187)',
         marginTop: 200,
         paddingBottom: 25,
         fontSize: 40,

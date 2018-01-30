@@ -10,9 +10,14 @@ import {
     TouchableNativeFeedback,
     TouchableOpacity
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 export default class Formsignup extends Component{
     static navigationOptions ={
         header: null
+    }
+
+    login(){
+        Actions.pop()
     }
 
     render(){
@@ -21,7 +26,7 @@ export default class Formsignup extends Component{
                 <KeyboardAvoidingView behavior="padding">
                 <TextInput
                     placeholder='Username'
-                    placeholderTextColor='#fff'
+                    placeholderTextColor='#000'
                     underlineColorAndroid='transparent'
                     returnKeyType="next"
                     autoCapitalize="none"
@@ -31,7 +36,7 @@ export default class Formsignup extends Component{
                 />
                 <TextInput
                     placeholder='Password'
-                    placeholderTextColor='#fff'
+                    placeholderTextColor='#000'
                     underlineColorAndroid='transparent'
                     returnKeyType="go"
                     secureTextEntry
@@ -40,7 +45,7 @@ export default class Formsignup extends Component{
                     ref={(input) => this.passInput =input}
                 />
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={this.login} >
                     <Text style={styles.buttonText}>{this.props.type}</Text>
                 </TouchableOpacity>
             </View>
@@ -55,8 +60,8 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 300,
-        color: '#FFF',
-        backgroundColor: '#2196f3',
+        color: '#000',
+        backgroundColor: 'rgb(165,253,193)',
         borderRadius: 25,
         paddingHorizontal: 16,
         marginLeft: 20,
@@ -65,8 +70,8 @@ const styles = StyleSheet.create({
     },
     inputpass: {
         width: 300,
-        color: '#fff',
-        backgroundColor: '#2196f3',
+        color: '#000',
+        backgroundColor: 'rgb(165,253,193)',
         borderRadius: 25,
         paddingHorizontal: 16,
         marginVertical: 10,
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
     },
     button:{
         width: 300,
-        backgroundColor: '#2196f3',
+        backgroundColor: 'rgb(14,18,21)',
         borderRadius: 10,
         marginVertical: 10,
         paddingVertical: 13,

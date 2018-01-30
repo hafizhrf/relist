@@ -11,6 +11,7 @@ import {
 
 import Formsignup from './Formsignup';
 import { Actions } from 'react-native-router-flux';
+import { Container } from 'native-base';
 
 export default class Signup extends Component{
     static navigationOptions ={
@@ -23,40 +24,35 @@ export default class Signup extends Component{
 
     render(){
         return(
-            <ImageBackground source={require('../image/bg.jpg')} style={styles.container}>
-                <View style={styles.marg}> 
-                <StatusBar 
-                    backgroundColor= "#b6e0ec"
-                    barStyle= "light-content"
-                    />
-                   <View style={styles.logocon}>
-                        <Text style={styles.texts}>
-                            Sign Up
-                        </Text>
-                    </View>
-                    <View style={styles.form}>
-                        <Formsignup type="Sign Up" />
-                        <View style={styles.signInTextCont}>
-                            <Text style={styles.signInText}>Already have an account?</Text>
-                            <TouchableOpacity onPress={this.login}><Text style={styles.signInButton}> Sign In</Text></TouchableOpacity>
-                        </View>
+            <Container style={styles.marg}> 
+            <StatusBar 
+                backgroundColor= "rgb(48,56,58)"
+                barStyle= "light-content"
+                />
+                <View style={styles.logocon}>
+                    <Text style={styles.texts}>
+                        Sign Up
+                    </Text>
+                </View>
+                <View style={styles.form}>
+                    <Formsignup type="Sign Up" />
+                    <View style={styles.signInTextCont}>
+                        <Text style={styles.signInText}>Already have an account?</Text>
+                        <TouchableOpacity onPress={this.login}><Text style={styles.signInButton}> Sign In</Text></TouchableOpacity>
                     </View>
                 </View>
-            </ImageBackground>
+            </Container>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
     marg: {
-        marginBottom: 100
+        flex: 1,
+        backgroundColor: 'rgb(48,56,58)'
     },
     texts: {
-        color: '#757575',
+        color: 'rgb(160,253,193)',
         marginTop: 200,
         paddingBottom: 25,
         fontSize: 40,

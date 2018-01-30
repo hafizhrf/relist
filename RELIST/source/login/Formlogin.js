@@ -27,7 +27,7 @@ export default class Formlogin extends Component{
                 <KeyboardAvoidingView behavior="padding">
                 <TextInput
                     placeholder='Username'
-                    placeholderTextColor='#fff'
+                    placeholderTextColor='#000'
                     underlineColorAndroid='transparent'
                     returnKeyType="next"
                     autoCapitalize="none"
@@ -37,7 +37,7 @@ export default class Formlogin extends Component{
                 />
                 <TextInput
                     placeholder='Password'
-                    placeholderTextColor='#fff'
+                    placeholderTextColor='#000'
                     underlineColorAndroid='transparent'
                     returnKeyType="go"
                     secureTextEntry
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 300,
-        color: '#FFF',
-        backgroundColor: '#2196f3',
+        color: '#000',
+        backgroundColor: 'rgb(168,243,187)',
         borderRadius: 25,
         paddingHorizontal: 16,
         marginLeft: 20,
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     },
     inputpass: {
         width: 300,
-        color: '#fff',
-        backgroundColor: '#2196f3',
+        color: '#000',
+        backgroundColor: 'rgb(168,243,187)',
         borderRadius: 25,
         paddingHorizontal: 16,
         marginVertical: 10,
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     },
     button:{
         width: 300,
-        backgroundColor: '#2196f3',
+        backgroundColor: 'rgb(14,18,21)',
         borderRadius: 10,
         marginVertical: 10,
         paddingVertical: 13,
