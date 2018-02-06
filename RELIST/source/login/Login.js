@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {
     View,
+    ScrollView,
     StyleSheet,
     Text,
     TextInput,
-    ImageBackground,
+    Image,
     StatusBar,
     TouchableOpacity
 } from 'react-native';
 
 import Formlogin from './Formlogin';
 import { Actions } from 'react-native-router-flux';
-import { Container } from 'native-base';
+import { Container, Content } from 'native-base';
 
 export default class Login extends Component{
 
@@ -25,43 +26,36 @@ export default class Login extends Component{
 
     render(){
         return(
-            
-                <Container style={styles.marg}> 
+            <Container> 
                 <StatusBar 
                     backgroundColor= "rgb(48,56,58)"
                     barStyle= "light-content"
                     />
-                   <View style={styles.logocon}>
-                        <Text style={styles.texts}>
-                            Login
-                        </Text>
-                    </View>
-                    <View style={styles.form}>
-                        <Formlogin type="Login" />
-                        <View style={styles.signUpTextCont}>
-                            <Text style={styles.signUpText}>Doesn't have an account?</Text>
-                            <TouchableOpacity onPress={this.signup}><Text style={styles.signUpButton}> Sign Up</Text></TouchableOpacity>
-                        </View>
-                    </View>
-                </Container>
-            
+                    <Content style={styles.marg}>
+                        <ScrollView>
+                            <View>
+                                <Text style={styles.icon}>
+                                    <Image source={require('../image/icon.png')} style={{width: 400, height: 400 }} />
+                                </Text>
+                                <Formlogin type="Login" />
+                                <View style={styles.signUpTextCont}>
+                                    <Text style={styles.signUpText}>Doesn't have an account?</Text>
+                                    <TouchableOpacity onPress={this.signup}><Text style={styles.signUpButton}> Sign Up</Text></TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </Content>
+            </Container>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
     marg: {
-        flex: 1,
         backgroundColor: 'rgb(48,56,58)',
     },
-    texts: {
-        color: 'rgb(160,243,187)',
-        marginTop: 200,
-        paddingBottom: 25,
-        fontSize: 40,
+    icon: {
+        marginTop: 80,
         textAlign: 'center',
     },
     signUpTextCont: {
@@ -69,7 +63,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'center',
         paddingVertical: 16,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     signUpText: {
        color: 'rgba(255,255,255,0.6)',

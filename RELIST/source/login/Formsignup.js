@@ -56,7 +56,7 @@ export default class Formsignup extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
     input: {
         width: 300,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 50
+        marginTop: 80
     },
     inputpass: {
         width: 300,

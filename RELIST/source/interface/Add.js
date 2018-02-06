@@ -14,9 +14,20 @@ export default class Add extends Component{
             <Container style={styles.container}>
                 <View style={styles.UI}>
                     <TextInput 
-                        placeholder='What are you want to do?'
-                        placeholderTextColor='#000'
-                        underlineColorAndroid='transparent'
+                        placeholder='Create your Project Todo here...'
+                        placeholderTextColor='#999'
+                        underlineColorAndroid='rgb(14,18,21)'
+                        returnKeyType="next"
+                        onSubmitEditing={() => this.list.focus()}
+                        style={styles.todo} />
+                </View>
+                <View style={styles.list}>
+                    <TextInput 
+                        placeholder='Write your List here...'
+                        placeholderTextColor='#999'
+                        underlineColorAndroid='rgb(14,18,21)'
+                        returnKeyType="go"
+                        ref={(todo) => this.list =todo}
                         style={styles.input} />
                         <TouchableOpacity style={styles.button} onPress={this.index}>
                             <Text style={styles.buttonText}>+</Text>
@@ -39,35 +50,73 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
-        bottom: 0,
+        top: 55,
         left: 0
     },
 
-    input: {
-        width: 300,
-        backgroundColor: 'rgb(168,243,187)',
+    list: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'row',
+        position: 'absolute',
+        marginTop: 10,
+        top: 110,
+        left: 0
+    },
+
+    line: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 185,
+        left: 0 
+    },
+
+    todo: {
+        flex: 1,
+        color: '#fff',
         paddingHorizontal: 16,
         borderRadius: 25,
-        marginLeft: 20,
+        marginLeft: 10,
+        marginRight: 10,
         marginBottom: 20,
-        
+    },
+
+    input: {
+        flex: 1,
+        color: '#fff',
+        paddingHorizontal: 16,
+        borderRadius: 25,
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: 20,  
+    },
+
+    lines: {
+        flex: 1,
+        color: '#fff',
+        marginLeft: 40,
+        marginRight: 40,
+        marginBottom: 20,
+        alignItems: 'stretch'
     },
 
     button: {
-        width: 60,
-        height: 60,
-        backgroundColor: 'rgb(14,18,21)',
+        width: 40,
+        height: 40,
+        backgroundColor: '#FFF',
         borderRadius: 50,
-        marginLeft: 10,
         marginRight: 20,
         marginBottom: 20,
     },
 
     buttonText: {
-        color: '#fff',
-        paddingVertical: 3,
-        paddingHorizontal: 20,
-        fontSize: 38,
-        fontWeight: '300'
+        color: 'black',
+        marginTop: 3,
+        textAlign: 'center',
+        fontSize: 24,
+        fontWeight: '500'
     }
 });
