@@ -1,14 +1,40 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import { Container, Tab, Tabs, Content, Card, CardItem, Body, Button, Icon } from 'native-base';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, BackHandler } from 'react-native';
+import { Container, Tab, Tabs, Content, Card, CardItem, Body, Button, Icon, Fab } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 import Active from '../interface/Active';
+import Complete from '../interface/Complete';
+import Missed from '../interface/Missed';
 
 export default class Index extends Component{
     static navigationOptions = {
-        header: null
+        header: null,
+        gesturesEnabled: false
     }
+
+    // constructor (props) {
+    //     super(props)
+    //   }
+    
+    //   componentDidMount () {
+    //     BackHandler.addEventListener('hardwareBackPress', () => this.backAndroid()) // Listen for the hardware back button on Android to be pressed
+    //   }
+    
+    //   componentWillUnmount () {
+    //     BackHandler.removeEventListener('hardwareBackPress', () => this.backAndroid()) // Remove listener
+    //   }
+    
+    //   backAndroid () {
+
+    //     if (Actions.state.index === 0) {
+    //         return false;
+    //     }
+
+    //     Actions.pop() // Return to previous screen
+    //     return true // Needed so BackHandler knows that you are overriding the default action and that it should not close the app
+    //   }
+    
 
     add(){
         Actions.add()
@@ -17,25 +43,24 @@ export default class Index extends Component{
     render(){
         return(
             <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
-                <Tabs  initialPage={0} >
+                <Tabs initialPage={0} >
                     <Tab heading = "Active" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#fff'}} >
                         <Active />
                     </Tab>
                     <Tab heading = "Complete" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#fff'}} >
-                        <Active />
+                        <Complete />
                     </Tab>
                     <Tab heading = "Missed" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#fff'}} >
-                        <ScrollView  style={styles.form}>
-                            <Text style={styles.data}>Text</Text>
-                            <Text style={styles.data}>Text</Text>
-                            <Text style={styles.data}>Text</Text>
-                        </ScrollView>
+                        <Missed />
                     </Tab>
                 </Tabs>
-                <View style={{backgroundColor: 'transparent'}} >
-                    <TouchableOpacity style={styles.button} onPress={this.add}>
-                        <Text style={styles.buttonText}>+</Text>
-                    </TouchableOpacity>
+                <View>
+                    <Fab
+                        position="bottomRight"
+                        style={{backgroundColor: '#999'}}
+                        onPress={this.add}
+                    ><Icon name="md-plus-circle" />
+                    </Fab>
                 </View>
             </Container>
         );  
@@ -44,42 +69,26 @@ export default class Index extends Component{
 
 const styles = StyleSheet.create({
 
-    form: {
-        flex: 1,
-        backgroundColor: 'rgb(46,56,58)',
-        paddingVertical: 10
-    },
-
-    data: {
-        color: '#fff',
-        backgroundColor: 'rgb(14,18,21)',
-        padding: 20,
-        marginBottom: 10,
-        marginLeft: 5,
-        marginRight: 5,
-        borderRadius: 10,
-        flexDirection: 'row'
-    },
-
-    button: {
-        width: 60,
-        height: 60,
-        backgroundColor: '#fff',
-        borderRadius: 50,
-        marginBottom: 20,
-        marginRight: 20,
+    menu: {
+        width: 55,
+        height: 55,
         marginTop: 10,
-        justifyContent: 'center',
+        marginBottom: 20,
+        marginLeft: 15,
         alignSelf: 'flex-end',
         position: 'relative',
         bottom: 0,
     },
 
-    buttonText: {
-        color: 'black',
-        textAlign: 'center',
-        marginBottom: 5,
-        fontSize: 38,
-        fontWeight: '300'
-    }
+    button: {
+        width: 50,
+        height: 50,
+        marginTop: 10,
+        marginBottom: 20,
+        marginRight: 15,
+        alignSelf: 'flex-end',
+        position: 'relative',
+        bottom: 0,
+    },
 });
+

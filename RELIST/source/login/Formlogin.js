@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    Alert,
     View,
     StyleSheet,
     Text,
@@ -18,7 +19,7 @@ export default class Formlogin extends Component{
     }
 
     index(){
-        Actions.index()
+        Actions.reset('index')
     }
 
     render(){

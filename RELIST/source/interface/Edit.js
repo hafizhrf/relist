@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
-import {Alert, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { Container } from 'native-base';
+import { View, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Container, Content, Icon, Fab } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
-export default class Add extends Component{
+export default class Edit extends Component{
     
-    onPressButton(){
-        Alert.alert('Adding Item', 'You add 1 Item', [
-            {text: 'Cancel', onPress: () => console.log('Canceling..'), style: 'cancel'},
-            {text: 'Oke', onPress:() => console.log('Adding Your Item...')}
-        ])
+    index(){
+        Actions.pop()
     }
-
 
     render(){
         return(
-            <Container style={styles.container}>
+            <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
                 <View style={styles.UI}>
                     <TextInput 
-                        placeholder='Create your Project Todo here...'
+                        placeholder='Update your Project Todo here...'
                         placeholderTextColor='#999'
                         underlineColorAndroid='rgb(14,18,21)'
                         returnKeyType="next"
@@ -33,9 +29,14 @@ export default class Add extends Component{
                         returnKeyType="go"
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
-                        <TouchableOpacity onPress={this.onPressButton}>
-                            <Image source={require('../image/add.png')} style={styles.button} />
+                        <TouchableOpacity style={styles.button} onPress={this.index}>
+                            <Text style={styles.buttonText}>+</Text>
                         </TouchableOpacity>
+                </View>
+                <View style={styles.deleteFab}>
+                    <Fab position="bottomRight" style={{backgroundColor: 'white'}}>
+                        <Icon name="md-trash" style={{color: 'red'}} />
+                    </Fab>
                 </View>
             </Container>
         );
@@ -43,15 +44,15 @@ export default class Add extends Component{
 }
 
 const styles = StyleSheet.create({
-    container: {
+
+    deleteFab: {
         flex: 1,
-        backgroundColor: 'rgb(48,56,58)'
+        bottom: 0,
+        flexDirection: 'row',
+        position: 'absolute'
     },
 
     UI: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
         top: 55,
@@ -59,23 +60,11 @@ const styles = StyleSheet.create({
     },
 
     list: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
         marginTop: 10,
         top: 110,
         left: 0
-    },
-
-    line: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        top: 185,
-        left: 0 
     },
 
     todo: {
@@ -98,19 +87,20 @@ const styles = StyleSheet.create({
         marginBottom: 20,  
     },
 
-    lines: {
-        flex: 1,
-        color: '#fff',
-        marginLeft: 40,
-        marginRight: 40,
-        marginBottom: 20,
-        alignItems: 'stretch'
-    },
-
     button: {
         width: 40,
         height: 40,
+        backgroundColor: '#FFF',
+        borderRadius: 50,
         marginRight: 20,
         marginBottom: 20,
     },
+
+    buttonText: {
+        color: 'black',
+        marginTop: 3,
+        textAlign: 'center',
+        fontSize: 24,
+        fontWeight: '500'
+    }
 });
