@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Alert, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { Container } from 'native-base';
+import { Container, Fab, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 export default class Add extends Component{
@@ -20,7 +20,7 @@ export default class Add extends Component{
                     <TextInput 
                         placeholder='Create your Project Todo here...'
                         placeholderTextColor='#999'
-                        underlineColorAndroid='rgb(14,18,21)'
+                        underlineColorAndroid='white'
                         returnKeyType="next"
                         onSubmitEditing={() => this.list.focus()}
                         style={styles.todo} />
@@ -29,12 +29,12 @@ export default class Add extends Component{
                     <TextInput 
                         placeholder='Write your List here...'
                         placeholderTextColor='#999'
-                        underlineColorAndroid='rgb(14,18,21)'
+                        underlineColorAndroid='white'
                         returnKeyType="go"
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
                         <TouchableOpacity onPress={this.onPressButton}>
-                            <Image source={require('../image/add.png')} style={styles.button} />
+                            <Icon name="ios-add-circle-outline" style={{color: 'white', fontSize: 46, marginLeft: 10, marginRight: 20}} />
                         </TouchableOpacity>
                 </View>
             </Container>

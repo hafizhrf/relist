@@ -16,7 +16,7 @@ export default class Edit extends Component{
                     <TextInput 
                         placeholder='Update your Project Todo here...'
                         placeholderTextColor='#999'
-                        underlineColorAndroid='rgb(14,18,21)'
+                        underlineColorAndroid='white'
                         returnKeyType="next"
                         onSubmitEditing={() => this.list.focus()}
                         style={styles.todo} />
@@ -25,32 +25,25 @@ export default class Edit extends Component{
                     <TextInput 
                         placeholder='Write your List here...'
                         placeholderTextColor='#999'
-                        underlineColorAndroid='rgb(14,18,21)'
+                        underlineColorAndroid='white'
                         returnKeyType="go"
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
-                        <TouchableOpacity style={styles.button} onPress={this.index}>
-                            <Text style={styles.buttonText}>+</Text>
+                        <TouchableOpacity onPress={this.onPressButton}>
+                            <Icon name="ios-add-circle-outline" style={{color: 'white', fontSize: 46, marginLeft: 10, marginRight: 20}} />
                         </TouchableOpacity>
                 </View>
-                <View style={styles.deleteFab}>
-                    <Fab position="bottomRight" style={{backgroundColor: 'white'}}>
-                        <Icon name="md-trash" style={{color: 'red'}} />
-                    </Fab>
-                </View>
+
+                <Fab position="bottomRight" style={{backgroundColor: 'white'}}>
+                    <Icon name="md-trash" style={{color: 'red'}} />
+                </Fab>
+
             </Container>
         );
     }
 }
 
 const styles = StyleSheet.create({
-
-    deleteFab: {
-        flex: 1,
-        bottom: 0,
-        flexDirection: 'row',
-        position: 'absolute'
-    },
 
     UI: {
         flexDirection: 'row',
@@ -86,21 +79,4 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginBottom: 20,  
     },
-
-    button: {
-        width: 40,
-        height: 40,
-        backgroundColor: '#FFF',
-        borderRadius: 50,
-        marginRight: 20,
-        marginBottom: 20,
-    },
-
-    buttonText: {
-        color: 'black',
-        marginTop: 3,
-        textAlign: 'center',
-        fontSize: 24,
-        fontWeight: '500'
-    }
 });

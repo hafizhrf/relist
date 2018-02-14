@@ -12,11 +12,39 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { Icon } from 'native-base';
+
 
 export default class Formlogin extends Component{
     static navigationOptions ={
         header: null
     }
+
+    // constructor(props){
+    //     super(props);
+    //     this.state = { 
+    //         username: [],
+    //         password: [],
+    //     }
+
+    // var data = {
+    //     "username": this.state.username,
+    //     "password": this.state.password
+    // }
+
+    // fetch("http://192.168.100.13:212/user",{
+    //     method: "POST",
+    //     headers: headers,
+    //     body: JSON.stringify(data)
+    // })
+    // .then(function(response){
+    //     return response.json();
+    // })
+    // .then(function(data){
+    //     console.log(data)
+    // });
+
+    // }
 
     index(){
         Actions.reset('index')
@@ -33,6 +61,7 @@ export default class Formlogin extends Component{
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
+                    onChangeText={(username) => this.setState(username)}
                     onSubmitEditing={() => this.passInput.focus()}
                     style={styles.input}
                 />
