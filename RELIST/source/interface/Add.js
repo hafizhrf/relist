@@ -3,15 +3,17 @@ import {Alert, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from
 import { Container, Fab, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
+import index from '../login/Index';
+
 export default class Add extends Component{
     
     onPressButton(){
-        Alert.alert('Adding Item', 'You add 1 Item', [
-            {text: 'Cancel', onPress: () => console.log('Canceling..'), style: 'cancel'},
-            {text: 'Oke', onPress:() => console.log('Adding Your Item...')}
-        ])
+        Alert.alert('Adding Item', 'You add 1 Item')
     }
 
+    onPressSave(){
+        Alert.alert('Save Item', 'You saving this item')
+    }
 
     render(){
         return(
@@ -33,10 +35,13 @@ export default class Add extends Component{
                         returnKeyType="go"
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
-                        <TouchableOpacity onPress={this.onPressButton}>
-                            <Icon name="ios-add-circle-outline" style={{color: 'white', fontSize: 46, marginLeft: 10, marginRight: 20}} />
+                        <TouchableOpacity style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
+                            <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
                         </TouchableOpacity>
                 </View>
+                <Fab position="bottomRight" style={{backgroundColor: '#2196f3'}} onPress={this.onPressSave} >
+                    <Icon name="md-document" style={{color: 'white', fontSize: 30}} />
+                </Fab>
             </Container>
         );
     }

@@ -67,7 +67,8 @@ const styles = StyleSheet.create({
     },
     signUpText: {
        color: 'rgba(255,255,255,0.6)',
-       fontSize: 16
+       fontSize: 16,
+       bottom: 0
     },
     signUpButton: {
         color: '#FFF',

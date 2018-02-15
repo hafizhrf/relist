@@ -60,7 +60,7 @@ export default class Index extends Component{
                 </Tabs>
                     <Fab
                         position="bottomRight"
-                        style={{backgroundColor: 'white'}}
+                        style={{backgroundColor: 'rgb(163,243,187)'}}
                         onPress={this.add}
                     ><Icon name="md-add" style={{color: 'black', fontSize: 30}} />
                     </Fab>
