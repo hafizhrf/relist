@@ -59,7 +59,7 @@ export default class Index extends Component{
                             <Icon name="md-menu" style={{color: '#fff', width: 24, height: 24}} />
                         </Button>
                     </Left>
-                    <Item style={{paddingLeft: 10, marginLeft: -100, marginRight: 1.5,}}>
+                    <Item style={{marginLeft: -100, marginRight: 1.5,}}>
                         <Icon name="md-search" style={{fontSize: 24}} />
                         <Input placeholder="Search" />
                         {/* <Image source={require('../image/search.png')} style={{ height: 24, width:24}} />
