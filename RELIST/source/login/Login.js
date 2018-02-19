@@ -17,9 +17,10 @@ import { Container, Content } from 'native-base';
 export default class Login extends Component{
 
     static navigationOptions = {
-    header: null,
-    gesturesEnabled: false
-}
+        header: null,
+        gesturesEnabled: false
+    }
+
     signup(){
         Actions.signup()
     }

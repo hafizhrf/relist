@@ -20,12 +20,10 @@ export default class Formlogin extends Component{
         header: null
     }
 
-    // constructor(props){
-    //     super(props);
-    //     this.state = { 
-    //         username: [],
-    //         password: [],
-    //     }
+    constructor(props){
+        super(props);
+        this.props = props;
+    }
 
     // var data = {
     //     "username": this.state.username,

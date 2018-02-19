@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, BackHandler, StatusBar } from 'react-native';
-import { Container, Tab, Tabs, Content, Card, CardItem, Body, Button, Icon, Fab } from 'native-base';
+import { Container, Tab, Tabs, Content, Card, CardItem, Body, Button, Icon, Fab, Drawer, Item, Header, Left, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import SideBar from '../RootPage';
+const util = require('util');
 
 import Active from '../interface/Active';
 import Complete from '../interface/Complete';
@@ -39,9 +41,34 @@ export default class Index extends Component{
     add(){
         Actions.add()
     }
+
+    closeDrawer() {
+        this._drawer._root.close()
+    }
+    
+    openDrawer() {
+        this._drawer._root.open()
+    }
     
     render(){
         return(
+            <Drawer ref={(ref) => { this._drawer = ref; }} content={<SideBar navigator={this._navigator} />} onClose={() => this.closeDrawer()} >
+                <Header searchBar rounded dark noShadow androidStatusBarColor="rgb(46,56,58)" style={{backgroundColor: 'rgb(46,56,58)'}}>
+                    <Left>
+                        <Button transparent onPress={()=> this.openDrawer()}>
+                            <Icon name="md-menu" style={{color: '#fff', width: 24, height: 24}} />
+                        </Button>
+                    </Left>
+                    <Item style={{paddingLeft: 10, marginLeft: -100, marginRight: 1.5,}}>
+                        <Icon name="md-search" style={{fontSize: 24}} />
+                        <Input placeholder="Search" />
+                        {/* <Image source={require('../image/search.png')} style={{ height: 24, width:24}} />
+                        <Input placeholder="Search" /> */}
+                    </Item>
+                    <Button transparent>
+                        <Text>Search</Text>
+                    </Button>       
+                </Header>
             <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
                 <StatusBar 
                     backgroundColor= "rgb(48,56,58)"
@@ -65,6 +92,7 @@ export default class Index extends Component{
                     ><Icon name="md-add" style={{color: 'black', fontSize: 30}} />
                     </Fab>
             </Container>
+            </Drawer>
         );  
     }
 }

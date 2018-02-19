@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { Container, Content, Icon, Fab, Button } from 'native-base';
+import { Container, Content, Icon, Fab, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 export default class Edit extends Component{
@@ -12,12 +12,13 @@ export default class Edit extends Component{
     constructor() {
         super();
         this.state = {
-            active: 'true'
+            active: false,
+            data: ['XI RPL A', 'XI RPL B']
         };
     }
 
     onPressButton(){
-        Alert.alert('Adding Item', 'You add 1 Item')
+        Alert.alert('Add Item', 'You add 1 Item')
     }
 
     onPressDelete(){
@@ -51,6 +52,17 @@ export default class Edit extends Component{
                         <TouchableOpacity onPress={this.onPressButton} style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
                             <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
                         </TouchableOpacity>
+                </View>
+                <View style={styles.dataList}>
+                    <List dataArray={this.state.data}
+                        renderRow={(data) =>
+                            <ListItem noBorder>
+                                <View>
+                                    <Text style={{color: 'white'}}>{data}</Text>
+                                </View>
+                            </ListItem>    
+                        }>
+                    </List>
                 </View>
 
                 <Fab 
@@ -88,6 +100,13 @@ const styles = StyleSheet.create({
         position: 'absolute',
         marginTop: 10,
         top: 110,
+        left: 0
+    },
+
+    dataList: {
+        position: 'absolute',
+        marginTop: 10,
+        top: 160,
         left: 0
     },
 
