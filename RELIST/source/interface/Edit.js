@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { Container, Content, Icon, Fab, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
@@ -13,7 +13,7 @@ export default class Edit extends Component{
         super();
         this.state = {
             active: false,
-            data: ['XI RPL A', 'XI RPL B']
+            data: ['Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', ]
         };
     }
 
@@ -53,17 +53,23 @@ export default class Edit extends Component{
                             <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
                         </TouchableOpacity>
                 </View>
-                <View style={styles.dataList}>
-                    <List dataArray={this.state.data}
-                        renderRow={(data) =>
-                            <ListItem noBorder>
-                                <View>
-                                    <Text style={{color: 'white'}}>{data}</Text>
-                                </View>
-                            </ListItem>    
-                        }>
-                    </List>
-                </View>
+                <Container style={styles.dataList}>
+                    <Content style={{flex: 1}}>
+                        <ScrollView>
+                            <View>
+                                <List dataArray={this.state.data}
+                                    renderRow={(data) =>
+                                        <ListItem noBorder>
+                                            <View>
+                                                <Text style={{color: 'white', flex: 1}}>{data}</Text>
+                                            </View>
+                                        </ListItem>    
+                                    }>
+                                </List>
+                            </View>
+                        </ScrollView>
+                    </Content>
+                </Container>
 
                 <Fab 
                 active={this.state.active}
@@ -104,8 +110,9 @@ const styles = StyleSheet.create({
     },
 
     dataList: {
-        position: 'absolute',
+        flexDirection: 'row',
         marginTop: 10,
+        marginBottom: 10,
         top: 160,
         left: 0
     },

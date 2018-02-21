@@ -53,10 +53,10 @@ export default class Index extends Component{
     render(){
         return(
             <Drawer ref={(ref) => { this._drawer = ref; }} content={<SideBar navigator={this._navigator} />} onClose={() => this.closeDrawer()} >
-                <Header searchBar rounded dark noShadow androidStatusBarColor="rgb(46,56,58)" style={{backgroundColor: 'rgb(46,56,58)'}}>
+                <Header searchBar rounded dark noShadow androidStatusBarColor="rgb(46,56,58)" style={{backgroundColor: 'rgb(46,56,58)', flexDirection: 'row'}}>
                     <Left>
                         <Button transparent onPress={()=> this.openDrawer()}>
-                            <Icon name="md-menu" style={{color: '#fff', width: 24, height: 24}} />
+                            <Icon name="md-menu" style={{color: '#fff'}} />
                         </Button>
                     </Left>
                     <Item style={{marginLeft: -100, marginRight: 1.5,}}>
@@ -74,14 +74,14 @@ export default class Index extends Component{
                     backgroundColor= "rgb(48,56,58)"
                     barStyle= "light-content"
                     />
-                <Tabs initialPage={0} >
-                    <Tab heading = "Active" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#fff'}} >
+                <Tabs initialPage={0} locked>
+                    <Tab heading = "Active" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
                         <Active />
                     </Tab>
-                    <Tab heading = "Complete" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#fff'}} >
+                    <Tab heading = "Complete" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
                         <Complete />
                     </Tab>
-                    <Tab heading = "Missed" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#fff'}} >
+                    <Tab heading = "Missed" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
                         <Missed />
                     </Tab>
                 </Tabs>

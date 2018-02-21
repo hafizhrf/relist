@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
-import {Alert, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { Container, Fab, Icon } from 'native-base';
+import {Alert,ScrollView, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
+import { Container, Content, Fab, Icon, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
 import index from '../login/Index';
 
 export default class Add extends Component{
     
+    constructor() {
+        super();
+        this.state = {
+            // active: false,
+            data: []
+        };
+    }
+
     onPressButton(){
         Alert.alert('Adding Item', 'You add 1 Item')
     }
@@ -39,6 +47,23 @@ export default class Add extends Component{
                             <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
                         </TouchableOpacity>
                 </View>
+                <Container style={styles.dataList}>
+                    <Content style={{flex: 1}}>
+                        <ScrollView>
+                            <View>
+                                <List dataArray={this.state.data}
+                                    renderRow={(data) =>
+                                        <ListItem noBorder>
+                                            <View>
+                                                <Text style={{color: 'white', flex: 1}}></Text>
+                                            </View>
+                                        </ListItem>    
+                                    }>
+                                </List>
+                            </View>
+                        </ScrollView>
+                    </Content>
+                </Container>
                 <Fab position="bottomRight" style={{backgroundColor: '#2196f3'}} onPress={this.onPressSave} >
                     <Icon name="md-document" style={{color: 'white', fontSize: 30}} />
                 </Fab>
@@ -74,13 +99,12 @@ const styles = StyleSheet.create({
         left: 0
     },
 
-    line: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        top: 185,
-        left: 0 
+    dataList: {
+        flexDirection: 'row',
+        marginTop: 10,
+        marginBottom: 10,
+        top: 160,
+        left: 0
     },
 
     todo: {
