@@ -59,39 +59,36 @@ export default class Index extends Component{
                             <Icon name="md-menu" style={{color: '#fff'}} />
                         </Button>
                     </Left>
-                    <Item style={{marginLeft: -100, marginRight: 1.5,}}>
+                    <Item style={{marginLeft: -100, marginRight: 1.5}}>
                         <Icon name="md-search" style={{fontSize: 24}} />
-                        <Input placeholder="Search" />
+                        <Input placeholder="Search" style={{flex: 1}} />
                         {/* <Image source={require('../image/search.png')} style={{ height: 24, width:24}} />
                         <Input placeholder="Search" /> */}
-                    </Item>
-                    <Button transparent>
-                        <Text>Search</Text>
-                    </Button>       
+                    </Item>   
                 </Header>
-            <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
-                <StatusBar 
-                    backgroundColor= "rgb(48,56,58)"
-                    barStyle= "light-content"
-                    />
-                <Tabs initialPage={0} locked>
-                    <Tab heading = "Active" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
-                        <Active />
-                    </Tab>
-                    <Tab heading = "Complete" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
-                        <Complete />
-                    </Tab>
-                    <Tab heading = "Missed" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
-                        <Missed />
-                    </Tab>
-                </Tabs>
-                    <Fab
-                        position="bottomRight"
-                        style={{backgroundColor: 'rgb(163,243,187)'}}
-                        onPress={this.add}
-                    ><Icon name="md-add" style={{color: 'black', fontSize: 30}} />
-                    </Fab>
-            </Container>
+                <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
+                    <StatusBar 
+                        backgroundColor= "rgb(48,56,58)"
+                        barStyle= "light-content"
+                        />
+                    <Tabs initialPage={0} locked>
+                        <Tab heading = "Active" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
+                            <Active />
+                        </Tab>
+                        <Tab heading = "Complete" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
+                            <Complete />
+                        </Tab>
+                        <Tab heading = "Missed" tabStyle={{backgroundColor: 'rgb(46,56,58)'}} activeTextStyle={{color: '#fff'}} activeTabStyle={{backgroundColor: 'rgb(46,56,58)'}} textStyle={{color: '#999'}} >
+                            <Missed />
+                        </Tab>
+                    </Tabs>
+                        <Fab
+                            position="bottomRight"
+                            style={{backgroundColor: 'rgb(163,243,187)'}}
+                            onPress={this.add}
+                        ><Icon name="md-add" style={{color: 'black', fontSize: 30}} />
+                        </Fab>
+                </Container>
             </Drawer>
         );  
     }

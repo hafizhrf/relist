@@ -65,7 +65,7 @@ export default class Add extends Component{
                     </Content>
                 </Container>
                 <Fab position="bottomRight" style={{backgroundColor: '#2196f3'}} onPress={this.onPressSave} >
-                    <Icon name="md-document" style={{color: 'white', fontSize: 30}} />
+                    <Icon name="md-done-all" style={{color: 'white', fontSize: 30}} />
                 </Fab>
             </Container>
         );

@@ -83,7 +83,7 @@ export default class Edit extends Component{
                         <Icon name="md-trash"/>
                     </Button>
                     <Button style={{ backgroundColor: '#2196f3' }} onPress={this.onPressSave} >
-                        <Icon name="md-document"/>
+                        <Icon name="md-done-all"/>
                     </Button>
                 </Fab>
 
