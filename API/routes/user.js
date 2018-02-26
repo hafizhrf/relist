@@ -58,6 +58,26 @@ router.post('/', function(req, res, next){
         });
     });
 
+    router.post('/login', function(req, res, next){
+        req.body.username = req.body.username;
+        req.body.password = req.body.password;
+        db.one('select * from users where username = ${username} and password = ${password}',req.body)
+        .then(function(data){
+            res.status(200)
+            .json({
+                status: 'success',
+                data: data,
+                message: 'connected'
+            });
+        })
+        .catch(function(err){
+            res.status(200)
+            .json({
+                message: 'username atau password anda salah'
+            });
+        });
+    });
+
 router.put('/:id', function(req, res, next){
     var userID = parseInt(req.params.id);
     db.none(`update users set username = $1, password = $2 where id = ` + userID, 

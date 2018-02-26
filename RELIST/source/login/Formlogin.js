@@ -9,7 +9,8 @@ import {
     Button,
     KeyboardAvoidingView,
     TouchableNativeFeedback,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Icon } from 'native-base';
@@ -23,8 +24,22 @@ export default class Formlogin extends Component{
     constructor(props){
         super(props);
         this.props = props;
+            this.state = {
+                userName: '',
+                passWord: ''
+        }
     }
 
+    componentDidMount(){
+        this._loadInitialState().done();
+    }
+
+    _loadInitialState = async () => {
+        var value = await AsyncStorage.getItem('data');
+        if (value !== null){ 
+            Actions.reset('index')
+        }
+    }
     // var data = {
     //     "username": this.state.username,
     //     "password": this.state.password
@@ -59,7 +74,7 @@ export default class Formlogin extends Component{
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    onChangeText={(username) => this.setState(username)}
+                    onChangeText={(teks) => this.setState({userName: teks})} 
                     onSubmitEditing={() => this.passInput.focus()}
                     style={styles.input}
                 />
@@ -71,15 +86,40 @@ export default class Formlogin extends Component{
                     secureTextEntry
                     autoCapitalize="none"
                     style={styles.inputpass}
+                    onChangeText={(text) => this.setState({passWord: text})}
                     ref={(input) => this.passInput =input}
                 />
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button} onPress={this.index}>
+                <TouchableOpacity style={styles.button} onPress={this.login}>
                     <Text style={styles.buttonText}>{this.props.type}</Text>
                 </TouchableOpacity>
             </View>
             
         );
+    }
+
+    login = () => {
+        fetch('http://192.168.100.16:212/user/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: this.state.userName,
+                password: this.state.passWord
+            })
+        })
+        .then((response) => response.json())
+        .then ((res) => {
+            if (res.message === 'connected'){
+                Actions.reset('index')
+            }
+            else{
+                alert(res.message);
+            }
+        })
+        .done();
     }
 }
 

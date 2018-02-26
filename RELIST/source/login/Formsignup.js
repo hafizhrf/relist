@@ -10,14 +10,34 @@ import {
     TouchableNativeFeedback,
     TouchableOpacity
 } from 'react-native';
+import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import Lib from '../Lib';
 export default class Formsignup extends Component{
+    constructor(props){
+        super(props)
+            this.state = {
+                userName: '',
+                passWord: ''
+        }
+    }
+
     static navigationOptions ={
         header: null
     }
 
-    login(){
-        Actions.pop()
+    Regis=()=>{
+        axios.post('http://192.168.100.16:212/user', {
+        username: this.state.userName,
+        password: this.state.passWord
+    })
+    .then(function (response) {
+        console.log(response);  
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+    Actions.pop()
     }
 
     render(){
@@ -32,6 +52,7 @@ export default class Formsignup extends Component{
                     autoCapitalize="none"
                     autoCorrect={false}
                     onSubmitEditing={() => this.passInput.focus()}
+                    onChangeText={(username) => this.setState({userName: username})}                    
                     style={styles.input}
                 />
                 <TextInput
@@ -42,10 +63,11 @@ export default class Formsignup extends Component{
                     secureTextEntry
                     autoCapitalize="none"
                     style={styles.inputpass}
+                    onChangeText={(password) => this.setState({passWord: password})}
                     ref={(input) => this.passInput =input}
                 />
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button} onPress={this.login} >
+                <TouchableOpacity style={styles.button} onPress={this.Regis} >
                     <Text style={styles.buttonText}>{this.props.type}</Text>
                 </TouchableOpacity>
             </View>
