@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
-import {Alert,ScrollView, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import { Container, Content, Fab, Icon, List, ListItem } from 'native-base';
+import { View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { Container, Content, Icon, Fab, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
-import index from '../login/Index';
-
-export default class Add extends Component{
+export default class Edit extends Component{
     
+    index(){
+        Actions.pop()
+    }
+
     constructor() {
         super();
         this.state = {
-            // active: false,
-            data: []
+            active: false,
+            data: ['Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', ]
         };
     }
 
     onPressButton(){
-        Alert.alert('Adding Item', 'You add 1 Item')
+        Alert.alert('Add Item', 'You add 1 Item')
+    }
+
+    onPressDelete(){
+        Alert.alert('Delete Item', 'Deleted 1 Item')
     }
 
     onPressSave(){
@@ -25,10 +31,10 @@ export default class Add extends Component{
 
     render(){
         return(
-            <Container style={styles.container}>
+            <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
                 <View style={styles.UI}>
                     <TextInput 
-                        placeholder='Create your Project Todo here...'
+                        placeholder='Update your Project Todo here...'
                         placeholderTextColor='#999'
                         underlineColorAndroid='white'
                         returnKeyType="next"
@@ -43,7 +49,7 @@ export default class Add extends Component{
                         returnKeyType="go"
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
-                        <TouchableOpacity style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
+                        <TouchableOpacity onPress={this.onPressButton} style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
                             <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
                         </TouchableOpacity>
                 </View>
@@ -55,7 +61,7 @@ export default class Add extends Component{
                                     renderRow={(data) =>
                                         <ListItem noBorder>
                                             <View>
-                                                <Text style={{color: 'white', flex: 1}}></Text>
+                                                <Text style={{color: 'white', flex: 1}}>{data}</Text>
                                             </View>
                                         </ListItem>    
                                     }>
@@ -64,24 +70,31 @@ export default class Add extends Component{
                         </ScrollView>
                     </Content>
                 </Container>
-                <Fab position="bottomRight" style={{backgroundColor: '#2196f3'}} onPress={this.onPressSave} >
-                    <Icon name="md-done-all" style={{color: 'white', fontSize: 30}} />
+
+                <Fab 
+                active={this.state.active}
+                direction="up"
+                containerStyle={{ }}
+                position="bottomRight"
+                style={{backgroundColor: 'white'}}
+                onPress={() => this.setState({ active: !this.state.active })}>
+                <Icon name="md-more" style={{color: 'black'}} />
+                    <Button style={{ backgroundColor: 'red' }} onPress={this.onPressDelete} >
+                        <Icon name="md-trash"/>
+                    </Button>
+                    <Button style={{ backgroundColor: '#2196f3' }} onPress={this.onPressSave} >
+                        <Icon name="md-done-all"/>
+                    </Button>
                 </Fab>
+
             </Container>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'rgb(48,56,58)'
-    },
 
     UI: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
         top: 55,
@@ -89,9 +102,6 @@ const styles = StyleSheet.create({
     },
 
     list: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
         flexDirection: 'row',
         position: 'absolute',
         marginTop: 10,
@@ -125,21 +135,5 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         marginBottom: 20,  
-    },
-
-    lines: {
-        flex: 1,
-        color: '#fff',
-        marginLeft: 40,
-        marginRight: 40,
-        marginBottom: 20,
-        alignItems: 'stretch'
-    },
-
-    button: {
-        width: 40,
-        height: 40,
-        marginRight: 20,
-        marginBottom: 20,
     },
 });

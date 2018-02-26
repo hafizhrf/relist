@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import { Container, Content, Button, List, ListItem, Icon } from 'native-base';
+import { Container, Content, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 import Add from './Add';
 
-export default class Active extends Component{
+export default class Complete extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            data : ['Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon','Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon']
+            data : ['Khautal', 'Adrian', 'Alvin']
         }
     }
 
@@ -39,7 +39,7 @@ export default class Active extends Component{
                                 <View style={{flexDirection: 'row'}}>
                                     <TouchableOpacity style={{flex: 1}} onPress={this.edit}>      
                                         <Text style={styles.data}>{data}</Text>
-                                    </TouchableOpacity>                                   
+                                    </TouchableOpacity>
                                 </View>
                             </ListItem>
                         }>

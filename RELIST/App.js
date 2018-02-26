@@ -11,17 +11,14 @@ import {
 
 import Routes from './source/Routes';
 import RoutesIndex from './source/RoutesIndex';
+import RootPage from './source/RootPage';
 
 import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation';
 
 const Navigation = StackNavigator({
-  routes: {
-    screen:Routes,
-  },
-
-  routesIndex: {
-    screen: RoutesIndex
-  }
+  routes: { screen:Routes},
+  routesIndex: {screen: RoutesIndex},
+  drawer: {screen: RootPage}
 })
 
 export default Navigation;

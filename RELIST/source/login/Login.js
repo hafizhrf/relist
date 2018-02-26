@@ -17,9 +17,10 @@ import { Container, Content } from 'native-base';
 export default class Login extends Component{
 
     static navigationOptions = {
-    header: null,
-    gesturesEnabled: false
-}
+        header: null,
+        gesturesEnabled: false
+    }
+
     signup(){
         Actions.signup()
     }
@@ -39,7 +40,7 @@ export default class Login extends Component{
                                 </Text>
                                 <Formlogin type="Login" />
                                 <View style={styles.signUpTextCont}>
-                                    <Text style={styles.signUpText}>Doesn't have an account?</Text>
+                                    <Text style={styles.signUpText}>Doesn't have an account? </Text>
                                     <TouchableOpacity onPress={this.signup}><Text style={styles.signUpButton}> Sign Up</Text></TouchableOpacity>
                                 </View>
                             </View>
@@ -67,7 +68,8 @@ const styles = StyleSheet.create({
     },
     signUpText: {
        color: 'rgba(255,255,255,0.6)',
-       fontSize: 16
+       fontSize: 16,
+       bottom: 0
     },
     signUpButton: {
         color: '#FFF',

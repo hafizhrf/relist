@@ -39,7 +39,7 @@ export default class Signup extends Component{
                                 </Text>
                                 <Formsignup type="Sign Up" />
                                 <View style={styles.signInTextCont}>
-                                    <Text style={styles.signInText}>Already have an account?</Text>
+                                    <Text style={styles.signInText}>Already have an account? </Text>
                                     <TouchableOpacity onPress={this.login}><Text style={styles.signInButton}> Login</Text></TouchableOpacity>
                                 </View>
                             </View>
