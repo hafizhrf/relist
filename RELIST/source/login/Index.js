@@ -3,17 +3,21 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, BackHandle
 import { Container, Tab, Tabs, Content, Card, CardItem, Body, Button, Icon, Fab, Drawer, Item, Header, Left, Input } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import SideBar from '../RootPage';
+import {inject, observer} from 'mobx-react/native'
 const util = require('util');
 
 import Active from '../interface/Active';
 import Complete from '../interface/Complete';
 import Missed from '../interface/Missed';
 
+@inject('appstate')
+@observer
 export default class Index extends Component{
     static navigationOptions = {
         header: null,
         gesturesEnabled: false
     }
+    
 
     // constructor (props) {
     //     super(props)

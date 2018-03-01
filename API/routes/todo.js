@@ -30,7 +30,7 @@ router.get('/', function(req,res,next) {
 
 router.get('/:id', function(req, res, next){
   var todoID = parseInt(req.params.id);
-  db.one('select * from todos where id = '+ todoID)
+  db.one('select * from todos where id_user = '+ todoID)
   .then(function(data){
     res.status(200)
       .json({
@@ -45,6 +45,7 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+    req.body.iduser = req.body.iduser;
     req.body.todo = req.body.todo;
     req.body.duedate = moment().format('lll');
     req.body.createdat = moment().calendar();

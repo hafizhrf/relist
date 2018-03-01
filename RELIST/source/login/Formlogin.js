@@ -13,9 +13,12 @@ import {
     AsyncStorage
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import {link} from '../config';
 import { Icon } from 'native-base';
+import { inject, observer } from 'mobx-react/native';
 
-
+@inject('appstate')
+@observer
 export default class Formlogin extends Component{
     static navigationOptions ={
         header: null
@@ -28,6 +31,7 @@ export default class Formlogin extends Component{
                 userName: '',
                 passWord: ''
         }
+        this.user = props.appstate.user;
     }
 
     componentDidMount(){
@@ -99,7 +103,8 @@ export default class Formlogin extends Component{
     }
 
     login = () => {
-        fetch('http://192.168.100.16:212/user/login', {
+        
+        fetch(`${link}/user/login`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -111,13 +116,18 @@ export default class Formlogin extends Component{
             })
         })
         .then((response) => response.json())
-        .then ((res) => {
+        .then (async (res) => {
+            console.log(JSON.stringify(res));
             if (res.message === 'connected'){
                 Actions.reset('index')
+                this.user.userDatas.username = res.data.username;
+                this.user.userDatas.id = res.data.id;
+                Alert.alert('','Welcome ' + this.user.userDatas.username);
             }
             else{
                 alert(res.message);
             }
+            console.log(JSON.stringify(this.user.userDatas))
         })
         .done();
     }

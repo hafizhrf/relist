@@ -1,0 +1,1 @@
+export const link= 'http://192.168.100.34:212';

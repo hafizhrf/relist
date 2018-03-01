@@ -8,17 +8,17 @@ import {
   TouchableOpacity,
   polyfills
 } from 'react-native';
+import {Provider} from 'mobx-react/native';
+import Mainstore from './source/store/Mainstore';
+import Navigation from './source/Navigation';
+let appstate = new Mainstore();
 
-import Routes from './source/Routes';
-import RoutesIndex from './source/RoutesIndex';
-import RootPage from './source/RootPage';
-
-import { StackNavigator, TabNavigator, NavigationActions } from 'react-navigation';
-
-const Navigation = StackNavigator({
-  routes: { screen:Routes},
-  routesIndex: {screen: RoutesIndex},
-  drawer: {screen: RootPage}
-})
-
-export default Navigation;
+export default class App extends Component{
+  render(){
+    return(
+      <Provider appstate={appstate}>
+        <Navigation/>
+      </Provider>
+    )
+  }
+}

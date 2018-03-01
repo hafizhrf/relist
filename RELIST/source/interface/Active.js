@@ -1,30 +1,35 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View,AsyncStorage } from 'react-native';
 import { Container, Content, Button, List, ListItem, Icon } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-
+import {link} from '../config';
+import {observer, inject} from 'mobx-react/native';
 import Add from './Add';
 
+@inject('appstate')
+@observer
 export default class Active extends Component{
 
     constructor(props){
         super(props);
+        this.props = props;
         this.state = {
             data : ['Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon','Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon']
         }
+        this.user = props.appstate.user;
     }
 
-    // componentDidMount(){
-    //     axios.get('http://192.168.100.13:212/todo')
-    //         .then(function(res){
-    //             console.log(res.data.data);
-    //         })
-    //         .catch(function(err){
-    //             console.log(err);
-    //         });
-    //     }
-
+    
+    componentDidMount = () => {
+        axios.get(`${link}/todo/33`)
+        .then(function (res) {
+            console.log(JSON.stringify(this.user.userDatas.id));
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
     edit(){
         Actions.edit()
     }
