@@ -33,9 +33,8 @@ export default class Formlogin extends Component{
         }
         this.user = props.appstate.user;
     }
-
-    componentDidMount(){
-        this._loadInitialState().done();
+    masuk = () => {
+        this.user.login(this.state.userName,this.state.passWord)
     }
 
     _loadInitialState = async () => {
@@ -92,9 +91,10 @@ export default class Formlogin extends Component{
                     style={styles.inputpass}
                     onChangeText={(text) => this.setState({passWord: text})}
                     ref={(input) => this.passInput =input}
+                onSubmitEditing={this.login}
                 />
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button} onPress={this.login}>
+                <TouchableOpacity style={styles.button} onPress={this.masuk}>
                     <Text style={styles.buttonText}>{this.props.type}</Text>
                 </TouchableOpacity>
             </View>
@@ -102,35 +102,7 @@ export default class Formlogin extends Component{
         );
     }
 
-    login = () => {
-        
-        fetch(`${link}/user/login`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: this.state.userName,
-                password: this.state.passWord
-            })
-        })
-        .then((response) => response.json())
-        .then (async (res) => {
-            console.log(JSON.stringify(res));
-            if (res.message === 'connected'){
-                Actions.reset('index')
-                this.user.userDatas.username = res.data.username;
-                this.user.userDatas.id = res.data.id;
-                Alert.alert('','Welcome ' + this.user.userDatas.username);
-            }
-            else{
-                alert(res.message);
-            }
-            console.log(JSON.stringify(this.user.userDatas))
-        })
-        .done();
-    }
+    
 }
 
 const styles = StyleSheet.create({

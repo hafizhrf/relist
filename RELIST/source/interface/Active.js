@@ -22,13 +22,14 @@ export default class Active extends Component{
 
     
     componentDidMount = () => {
-        axios.get(`${link}/todo/33`)
-        .then(function (res) {
-            console.log(JSON.stringify(this.user.userDatas.id));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            axios.get(`${link}/todo/${this.user.userDatas.id}`)
+            .then(function (res) {
+                console.log(res.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            console.log('active');
     }
     edit(){
         Actions.edit()
@@ -38,6 +39,7 @@ export default class Active extends Component{
         return(
             <Container>
                 <Content style={styles.form}>
+                <Text> {this.user.userDatas.id}</Text>
                     <List dataArray={this.state.data}
                         renderRow={(data) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}}>
