@@ -30,7 +30,7 @@ router.get('/', function(req,res,next) {
 
 router.get('/:id', function(req, res, next){
   var todoID = parseInt(req.params.id);
-  db.one('select * from todos where id_user = '+ todoID)
+  db.any('select * from todos where id_user = '+ todoID)
   .then(function(data){
     res.status(200)
       .json({
@@ -43,6 +43,57 @@ router.get('/:id', function(req, res, next){
         return next(err);
     });
 });
+
+router.get('/aktif/:id', function(req, res, next){
+    var todoID = parseInt(req.params.id);
+    var aktif = 'Active';
+    db.any("select * from todos where id_user = '"+ todoID+"' and status = 'Active'")
+    .then(function(data){   
+      res.status(200)
+        .json({
+          status: 'success',
+          data : data,
+          message: 'Retrieved from ID '+todoID
+        });
+      })
+      .catch(function(err){
+          return next(err);
+      });
+  });
+
+  router.get('/komplit/:id', function(req, res, next){
+    var todoID = parseInt(req.params.id);
+    var aktif = 'Active';
+    db.any("select * from todos where id_user = '"+ todoID+"' and status = 'Complete'")
+    .then(function(data){   
+      res.status(200)
+        .json({
+          status: 'success',
+          data : data,
+          message: 'Retrieved from ID '+todoID
+        });
+      })
+      .catch(function(err){
+          return next(err);
+      });
+  });
+
+  router.get('/miss/:id', function(req, res, next){
+    var todoID = parseInt(req.params.id);
+    var aktif = 'Active';
+    db.any("select * from todos where id_user = '"+ todoID+"' and status = 'Missed'")
+    .then(function(data){   
+      res.status(200)
+        .json({
+          status: 'success',
+          data : data,
+          message: 'Retrieved from ID '+todoID
+        });
+      })
+      .catch(function(err){
+          return next(err);
+      });
+  });
 
 router.post('/', function(req, res, next){
     req.body.iduser = req.body.iduser;

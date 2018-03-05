@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View,AsyncStorage } from 'react-native';
-import { Container, Content, Button, List, ListItem, Icon } from 'native-base';
+import { StyleSheet, TouchableOpacity, Text, View,AsyncStorage, RefreshControl, FlatList} from 'react-native';
+import { Container, Content, Button, ListItem, Icon,List } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import {link} from '../config';
-import {observer, inject} from 'mobx-react/native';
 import Add from './Add';
+import {observer, inject} from 'mobx-react/native';
+
 
 @inject('appstate')
 @observer
@@ -15,42 +16,39 @@ export default class Active extends Component{
         super(props);
         this.props = props;
         this.state = {
-            data : ['Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon','Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon', 'Randy', 'Hafizh', 'Simon']
+            todoKu: [],
+            refreshing: false
         }
         this.user = props.appstate.user;
+        this.todo = props.appstate.todo;
     }
 
     
+    
     componentDidMount = () => {
-            axios.get(`${link}/todo/${this.user.userDatas.id}`)
-            .then(function (res) {
-                console.log(res.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-            console.log('active');
+        this.todo.getData();
     }
+
     edit(){
         Actions.edit()
     }
 
     render(){
+        console.log(this.todo.todoKu.peek(),'PEEK');
         return(
             <Container>
                 <Content style={styles.form}>
-                <Text> {this.user.userDatas.id}</Text>
-                    <List dataArray={this.state.data}
-                        renderRow={(data) => 
-                            <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}}>
+                    <FlatList data={this.todo.todoKu.peek()}
+                        renderItem={({item: data}) => 
+                            <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit}>      
-                                        <Text style={styles.data}>{data}</Text>
+                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
+                                        <Text style={styles.data}>{data.todo}</Text>
                                     </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
                         }>
-                    </List>
+                    </FlatList>
                 </Content>
             </Container>
         );

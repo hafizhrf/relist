@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, FlatList } from 'react-native';
 import { Container, Content, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-
 import Add from './Add';
+import {observer, inject} from 'mobx-react/native';
 
+
+@inject('appstate')
+@observer
 export default class Complete extends Component{
 
     constructor(props){
@@ -13,6 +16,8 @@ export default class Complete extends Component{
         this.state = {
             data : ['Khautal', 'Adrian', 'Alvin']
         }
+        this.user = props.appstate.user;
+        this.todo = props.appstate.todo;
     }
 
     // componentDidMount(){
@@ -29,21 +34,24 @@ export default class Complete extends Component{
         Actions.edit()
     }
 
+    componentDidMount = () => {
+        this.todo.getDataKomplit();
+    }
     render(){
         return(
             <Container>
                 <Content style={styles.form}>
-                    <List dataArray={this.state.data}
-                        renderRow={(data) => 
-                            <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}}>
+                <FlatList data={this.todo.todoKuKomplit.peek()}
+                        renderItem={({item: data}) => 
+                            <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit}>      
-                                        <Text style={styles.data}>{data}</Text>
-                                    </TouchableOpacity>
+                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
+                                        <Text style={styles.data}>{data.todo}</Text>
+                                    </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
                         }>
-                    </List>
+                    </FlatList>
                 </Content>
             </Container>
         );

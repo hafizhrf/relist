@@ -2,20 +2,54 @@ import React, { Component } from 'react';
 import {Alert,ScrollView, View, StyleSheet, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Container, Content, Fab, Icon, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
+import { link } from '../config';
 import index from '../login/Index';
+import axios from 'axios';
+import {observer, inject} from 'mobx-react/native';
 
+@inject('appstate')
+@observer
 export default class Add extends Component{
     
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             // active: false,
-            data: []
+            data: [],
+            todoname: '',
+            list: '',
+            refreshing: false
         };
+        this.user = props.appstate.user;
+        this.todo = props.appstate.todo;
     }
 
-    onPressButton(){
+    addTodo = () => {
+        let data = {
+            id_user: this.user.userDatas.id,
+            todo: this.state.todoname,
+            duedate: '',
+            createdat: '',
+            status: 'Active'
+          }
+
+          this.todo.postData(data);
+            Alert.alert('Save Item', 'You saving this item')
+            Actions.reset('index');
+          
+
+         
+    }
+
+    onPressButton =()=>{
+        let data = this.state.data;
+        data.push({
+            name : this.state.list
+        })
+        this.setState({
+            list : '',
+            data : data
+        })
         Alert.alert('Adding Item', 'You add 1 Item')
     }
 
@@ -33,6 +67,7 @@ export default class Add extends Component{
                         underlineColorAndroid='white'
                         returnKeyType="next"
                         onSubmitEditing={() => this.list.focus()}
+                        onChangeText={(teks) => this.setState({todoname: teks})} 
                         style={styles.todo} />
                 </View>
                 <View style={styles.list}>
@@ -41,6 +76,8 @@ export default class Add extends Component{
                         placeholderTextColor='#999'
                         underlineColorAndroid='white'
                         returnKeyType="go"
+                        onChangeText={(teks) => this.setState({list: teks})} 
+                        value={this.state.list}
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
                         <TouchableOpacity style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
@@ -55,7 +92,7 @@ export default class Add extends Component{
                                     renderRow={(data) =>
                                         <ListItem noBorder>
                                             <View>
-                                                <Text style={{color: 'white', flex: 1}}></Text>
+                                                <Text style={{color: 'white', flex: 1}}>{data.name}</Text>
                                             </View>
                                         </ListItem>    
                                     }>
@@ -64,7 +101,7 @@ export default class Add extends Component{
                         </ScrollView>
                     </Content>
                 </Container>
-                <Fab position="bottomRight" style={{backgroundColor: '#2196f3'}} onPress={this.onPressSave} >
+                <Fab position="bottomRight" style={{backgroundColor: '#2196f3'}} onPress={this.addTodo} >
                     <Icon name="md-done-all" style={{color: 'white', fontSize: 30}} />
                 </Fab>
             </Container>
