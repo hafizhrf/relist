@@ -39,7 +39,7 @@ export default class Formsignup extends Component{
             this.user.regis(this.state.userName, this.state.passWord)
         }
         else{
-            Alert.alert('','Check Your Password');
+            Alert.alert('Error','Please retype your password');
         }
     }
 

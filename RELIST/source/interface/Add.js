@@ -34,6 +34,7 @@ export default class Add extends Component{
           }
 
           this.todo.postData(data);
+            this.todo.getData();
             Alert.alert('Save Item', 'You saving this item')
             Actions.reset('index');
           

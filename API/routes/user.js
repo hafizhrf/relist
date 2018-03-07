@@ -73,7 +73,7 @@ router.post('/', function(req, res, next){
         .catch(function(err){
             res.status(200)
             .json({
-                message: 'username atau password anda salah'
+                message: 'Username or Password incorrect'
             });
         });
     });

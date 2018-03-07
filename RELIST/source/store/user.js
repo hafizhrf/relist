@@ -48,7 +48,7 @@ export default class User{
                 Actions.reset('index');
             }
             else{
-                Alert.alert('',res.message);
+                Alert.alert('Login error',res.message);
             }
         })
         .done();
