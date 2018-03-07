@@ -53,4 +53,25 @@ export default class User{
         })
         .done();
     }
+    @action
+    regis(user, pass){
+        console.log('Bisa');
+        fetch(`${link}/user/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: user,
+                password: pass
+            })
+        })
+        .then((response) => response.json())
+        .then (async (res) => {
+            console.log(JSON.stringify(res));
+            Actions.pop()
+        })
+        .done();
+    }
 }

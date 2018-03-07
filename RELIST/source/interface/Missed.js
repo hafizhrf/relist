@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, FlatList} from 'react-native';
 import { Container, Content, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 
 import Add from './Add';
+import {observer, inject} from 'mobx-react/native';
 
+
+@inject('appstate')
+@observer
 export default class Missed extends Component{
 
     constructor(props){
@@ -13,6 +17,8 @@ export default class Missed extends Component{
         this.state = {
             data : ['Hendy', 'Iqbal', 'Nung']
         }
+        this.user = props.appstate.user;
+        this.todo = props.appstate.todo;
     }
 
     // componentDidMount(){
@@ -28,22 +34,26 @@ export default class Missed extends Component{
     edit(){
         Actions.edit()
     }
-
+    componentDidMount = () => {
+        this.todo.getDatamiss();
+    }
     render(){
         return(
             <Container>
                 <Content style={styles.form}>
-                    <List dataArray={this.state.data}
-                        renderRow={(data) => 
-                            <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}}>
+                <FlatList data={this.todo.todoKuMiss}
+                        renderItem={({item: data}) => 
+                            <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit}>      
-                                        <Text style={styles.data}>{data}</Text>
-                                    </TouchableOpacity>
+                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
+                                        <Text style={styles.data}>{data.todo}</Text>
+                                    </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
-                        }>
-                    </List>
+                        }
+                        keyExtractor={(item, index) => index}
+                        >
+                    </FlatList>
                 </Content>
             </Container>
         );

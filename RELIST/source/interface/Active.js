@@ -23,7 +23,16 @@ export default class Active extends Component{
         this.todo = props.appstate.todo;
     }
 
-    
+    onRefresh = () => {
+        this.setState({
+            refreshing: true
+        });
+        this.todo.getData().then(() => {
+            this.setState({
+                refreshing: false
+            });
+        })
+    }
     
     componentDidMount = () => {
         this.todo.getData();
@@ -38,7 +47,7 @@ export default class Active extends Component{
         return(
             <Container>
                 <Content style={styles.form}>
-                    <FlatList data={this.todo.todoKu.peek()}
+                    <FlatList data={this.todo.todoKu}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
@@ -47,7 +56,15 @@ export default class Active extends Component{
                                     </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
-                        }>
+                        }
+                        keyExtractor={(data, index) => data.id}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {() => this._onRefresh}
+                            />
+                        }
+                        >
                     </FlatList>
                 </Content>
             </Container>

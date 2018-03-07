@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, FlatList } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, FlatList, RefreshControl} from 'react-native';
 import { Container, Content, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
@@ -14,10 +14,11 @@ export default class Complete extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data : ['Khautal', 'Adrian', 'Alvin']
+            data : ['Khautal', 'Adrian', 'Alvin'],
+            refreshing : false
         }
         this.user = props.appstate.user;
-        this.todo = props.appstate.todo;
+        this.todo = props.appstate.todo;     
     }
 
     // componentDidMount(){
@@ -34,14 +35,25 @@ export default class Complete extends Component{
         Actions.edit()
     }
 
+    onRefresh = () => {
+        this.setState({
+            refreshing: true
+        });
+        this.todo.getDatakomplit().then(() => {
+            this.setState({
+                refreshing: false
+            });
+        })
+    }
+
     componentDidMount = () => {
-        this.todo.getDataKomplit();
+        this.todo.getDatakomplit();
     }
     render(){
         return(
             <Container>
                 <Content style={styles.form}>
-                <FlatList data={this.todo.todoKuKomplit.peek()}
+                <FlatList data={this.todo.todoKuKomplit}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
@@ -50,7 +62,15 @@ export default class Complete extends Component{
                                     </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
-                        }>
+                        }
+                        keyExtractor={(data, index) => data.id}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {() => this._onRefresh}
+                            />
+                        }
+                        >
                     </FlatList>
                 </Content>
             </Container>

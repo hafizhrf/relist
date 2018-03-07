@@ -58,7 +58,6 @@ export default class Todo{
         axios.post(`${link}/todo`,data)
           .then(function (response) {
             console.log(response);
-            this.getData();
           })
           .catch(function (error) {
             console.log(error);

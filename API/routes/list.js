@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var connectionString = require('./config/index');
 var promise = require('bluebird');
 
 var options = {
@@ -9,7 +9,6 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://postgres:yuihirasawa@localhost:5432/relist';
 var db = pgp(connectionString);
 
 

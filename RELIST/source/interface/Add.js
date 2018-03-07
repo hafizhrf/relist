@@ -50,7 +50,6 @@ export default class Add extends Component{
             list : '',
             data : data
         })
-        Alert.alert('Adding Item', 'You add 1 Item')
     }
 
     onPressSave(){

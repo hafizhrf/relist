@@ -2,14 +2,13 @@ var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 var promise = require('bluebird');
-
+var connectionString = require('./config/index');
 var options = {
   // Initialization Options
   promiseLib:promise
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://postgres:yuihirasawa@localhost:5432/relist';
 var db = pgp(connectionString);
 
 

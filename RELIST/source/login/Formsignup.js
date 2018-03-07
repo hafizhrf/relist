@@ -13,6 +13,11 @@ import {
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import Lib from '../Lib';
+import {observer, inject} from 'mobx-react/native';
+
+
+@inject('appstate')
+@observer
 export default class Formsignup extends Component{
     constructor(props){
         super(props)
@@ -20,6 +25,7 @@ export default class Formsignup extends Component{
                 userName: '',
                 passWord: ''
         }
+        this.user = props.appstate.user;
     }
 
     static navigationOptions ={
@@ -27,17 +33,7 @@ export default class Formsignup extends Component{
     }
 
     Regis=()=>{
-        axios.post('http://192.168.100.16:212/user', {
-        username: this.state.userName,
-        password: this.state.passWord
-    })
-    .then(function (response) {
-        console.log(response);  
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
-    Actions.pop()
+        this.user.regis(this.state.userName, this.state.passWord)
     }
 
     render(){
