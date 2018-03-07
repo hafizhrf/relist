@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
     View,
+    Alert,
     StyleSheet,
     Text,
     TextInput,
@@ -23,7 +24,8 @@ export default class Formsignup extends Component{
         super(props)
             this.state = {
                 userName: '',
-                passWord: ''
+                passWord: '',
+                confirm: ''
         }
         this.user = props.appstate.user;
     }
@@ -33,35 +35,47 @@ export default class Formsignup extends Component{
     }
 
     Regis=()=>{
-        this.user.regis(this.state.userName, this.state.passWord)
+        if(this.state.passWord === this.state.confirm){
+            this.user.regis(this.state.userName, this.state.passWord)
+        }
+        else{
+            Alert.alert('','Check Your Password');
+        }
     }
 
     render(){
         return(
             <View style={styles.container}>
                 <KeyboardAvoidingView behavior="padding">
-                <TextInput
+                <TextInput 
                     placeholder='Username'
-                    placeholderTextColor='#000'
-                    underlineColorAndroid='transparent'
+                    placeholderTextColor='#999'
+                    underlineColorAndroid='white'
                     returnKeyType="next"
                     autoCapitalize="none"
                     autoCorrect={false}
                     onSubmitEditing={() => this.passInput.focus()}
                     onChangeText={(username) => this.setState({userName: username})}                    
-                    style={styles.input}
-                />
-                <TextInput
+                    style={styles.todo} />
+                <TextInput 
                     placeholder='Password'
-                    placeholderTextColor='#000'
-                    underlineColorAndroid='transparent'
-                    returnKeyType="go"
+                    placeholderTextColor='#999'
+                    underlineColorAndroid='white'
+                    returnKeyType="next"
                     secureTextEntry
                     autoCapitalize="none"
-                    style={styles.inputpass}
                     onChangeText={(password) => this.setState({passWord: password})}
-                    ref={(input) => this.passInput =input}
-                />
+                    ref={(input) => this.passInput =input} 
+                    style={styles.todo} />
+                <TextInput 
+                        placeholder='Confirm Password'
+                        placeholderTextColor='#999'
+                        underlineColorAndroid='white'
+                   		secureTextEntry
+                        returnKeyType="go"
+                        autoCapitalize="none"
+                        onChangeText={(teks) => this.setState({confirm: teks})} 
+                        style={styles.todo} />
                 </KeyboardAvoidingView>
                 <TouchableOpacity style={styles.button} onPress={this.Regis} >
                     <Text style={styles.buttonText}>{this.props.type}</Text>
@@ -74,7 +88,15 @@ export default class Formsignup extends Component{
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: 50,
         alignItems: 'center',
+    },
+    todo: {
+        width: 300,
+        color: 'white',
+        paddingHorizontal: 16,
+        marginLeft: 20,
+        marginRight: 20,
     },
     input: {
         width: 300,

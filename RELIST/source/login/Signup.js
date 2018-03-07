@@ -34,9 +34,7 @@ export default class Signup extends Component{
                     <Content style={styles.marg}>
                         <ScrollView>
                             <View>
-                                <Text style={styles.icon}>
-                                    <Image source={require('../image/icon.png')} style={{width: 400, height: 400 }} />
-                                </Text>
+                            <Text style={styles.icon}>Sign Up</Text>
                                 <Formsignup type="Sign Up" />
                                 <View style={styles.signInTextCont}>
                                     <Text style={styles.signInText}>Already have an account? </Text>
@@ -55,15 +53,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(48,56,58)'
     },
     icon: {
+        color: 'white',
         marginTop: 80,
         textAlign: 'center',
+        fontSize: 50,
     },
     signInTextCont: {
         flexGrow: 1,
         alignItems: 'flex-end',
         justifyContent: 'center',
         paddingVertical: 16,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginTop: 140,
     },
     signInText: {
        color: 'rgba(255,255,255,0.6)',

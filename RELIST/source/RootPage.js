@@ -16,20 +16,32 @@ import Active from './interface/Active';
 import Apidemo from '../utilities/api/Apidemo';
 import { Container, Content, Header, Body, Icon, List, Button, Footer, FooterTab } from 'native-base';
 import { StackNavigator, NavigationAction, TabNavigator,DrawerNavigator, DrawerItems } from 'react-navigation';
+import {observer, inject} from 'mobx-react/native';
 
+
+@inject('appstate')
+@observer
 export default class RootPage extends Component{
+	constructor(props){
+        super(props);
+        this.props = props;
+        this.state = {
+            refreshing: false
+        }
+        this.user = props.appstate.user;
+    }
+
 	static navigationOptions = {
 		header: null,
     	gesturesEnabled: false
 	}
 
-	login(){
+	index(){
+        Actions.reset('index')
+    }
+    login(){
         Actions.reset('login')
     }
-
-    exit_function = () => {
-    	BackHandler.exitApp();
-	}
 
 	render(){
 		return(
@@ -39,16 +51,13 @@ export default class RootPage extends Component{
 						<Header androidStatusBarColor="rgb(46,56,58)" style={{ height: 200, backgroundColor: 'rgb(46,56,58)'}}>
 							<Body style={{alignItems: 'center', justifyContent: 'center',}}>
 								<Image style={styles.drawerImage} source={require('./image/icon.png')} />
+								<Text style={{color: 'white'}}>Name : {this.user.userDatas.username}</Text>
 							</Body>
 						</Header>
 						<Button active transparent dark style={styles.itemExit} onPress={() => this.index()} >
 							<Icon active name="md-home" />
 								<Text style={{color: 'black'}}>Home</Text>
 						</Button>
-						<Button active transparent dark style={styles.itemExit} onPress={() => this.exit_function()} >
-							<Icon active name="md-person" />
-								<Text style={{color: 'black'}}>Profile</Text>
-						</Button>   
 					</List>
 				</Content>
 				<Footer>
