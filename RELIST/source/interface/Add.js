@@ -43,13 +43,12 @@ export default class Add extends Component{
     }
 
     onPressButton =()=>{
-        let data = this.state.data;
-        data.push({
-            name : this.state.list
-        })
+        let data = {
+            list: this.state.list,
+            status: 'Active'
+          }
         this.setState({
             list : '',
-            data : data
         })
     }
 
@@ -70,7 +69,7 @@ export default class Add extends Component{
                         onChangeText={(teks) => this.setState({todoname: teks})} 
                         style={styles.todo} />
                 </View>
-                <View style={styles.list}>
+                {/* <View style={styles.list}>
                     <TextInput 
                         placeholder='Write your List here...'
                         placeholderTextColor='#999'
@@ -83,7 +82,7 @@ export default class Add extends Component{
                         <TouchableOpacity style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
                             <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
                         </TouchableOpacity>
-                </View>
+                </View> */}
                 <Container style={styles.dataList}>
                     <Content style={{flex: 1}}>
                         <ScrollView>

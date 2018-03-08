@@ -1,44 +1,90 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { Container, Content, Icon, Fab, Button, List, ListItem } from 'native-base';
+import { View, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, Alert,FlatList } from 'react-native';
+import { Container, Content, Icon, Fab, Button, List, ListItem,Footer, FooterTab } from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import {link} from '../config';
+import {observer, inject} from 'mobx-react/native';
+import axios from 'axios';
 
+@inject('appstate')
+@observer
 export default class Edit extends Component{
     
     index(){
         Actions.pop()
     }
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             active: false,
-            data: ['Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL', ]
+            todoname: '',
+            list: '',
+            data: ['Selesain Project PKL', 'Selesain Project PKL', 'Selesain Project PKL' ]
         };
+        this.todo = props.appstate.todo;
+        this.lists = props.appstate.list;
     }
 
-    onPressButton(){
+    onPressButton = () => {
+        let datalist = {
+            id_todo: this.todo.idTodo,
+            list: this.state.list,
+            status: 'Active'
+          }
+        console.log(this.todo.idTodo)
+        this.lists.postList(datalist);
+        this.setState({
+            list : '',
+        })
         Alert.alert('Add Item', 'You add 1 Item')
     }
 
-    onPressDelete(){
-        Alert.alert('Delete Item', 'Deleted 1 Item')
+    onPressDelete = () => {
+        this.todo.delTodo();
+        Alert.alert('Success', 'You Deleted this item');
+        Actions.reset('index');
     }
 
-    onPressSave(){
-        Alert.alert('Save Item', 'You saving this item')
+    onPressSave = () => {
+        let data = {
+            todo: this.state.todoname,
+            duedate: '',
+            status: 'Active'
+          }
+        this.todo.putData(data);
+        Alert.alert('Success', 'You Edit this item');
+        Actions.reset('index');
+    }
+
+    onComplete = () =>{
+        let datacom ={
+            todo: this.todo.namaTodo,
+            duedate: '',
+            status: 'Complete'
+        }
+        this.todo.putData(datacom);
+        Alert.alert('Success', 'You Todo has completed');
+        Actions.reset('index');
+    }
+
+    componentDidMount = () => {
+        this.lists.getlistData();
     }
 
     render(){
+        console.log(this.lists.listArray.peek(),'PEEK');
         return(
             <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
                 <View style={styles.UI}>
                     <TextInput 
-                        placeholder='Update your Project Todo here...'
-                        placeholderTextColor='#999'
+                        placeholder={this.todo.namaTodo}
+                        placeholderTextColor='#fff'
                         underlineColorAndroid='white'
                         returnKeyType="next"
+                        editable={true}
                         onSubmitEditing={() => this.list.focus()}
+                        onChangeText={(teks) => this.setState({todoname: teks})}
                         style={styles.todo} />
                 </View>
                 <View style={styles.list}>
@@ -47,6 +93,7 @@ export default class Edit extends Component{
                         placeholderTextColor='#999'
                         underlineColorAndroid='white'
                         returnKeyType="go"
+                        onChangeText={(teks) => this.setState({list: teks})}
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
                         <TouchableOpacity onPress={this.onPressButton} style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
@@ -57,20 +104,30 @@ export default class Edit extends Component{
                     <Content style={{flex: 1}}>
                         <ScrollView>
                             <View>
-                                <List dataArray={this.state.data}
-                                    renderRow={(data) =>
-                                        <ListItem noBorder>
-                                            <View>
-                                                <Text style={{color: 'white', flex: 1}}>{data}</Text>
-                                            </View>
-                                        </ListItem>    
-                                    }>
-                                </List>
+                                <FlatList dataArray={this.state.data}
+                                    renderItem={({item: data}) => 
+                                    <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
+                                        <View style={{flexDirection: 'row'}}>
+                                            <TouchableOpacity style={{flex: 1}} >      
+                                                <Text style={styles.data}>{data}</Text>
+                                            </TouchableOpacity>                                   
+                                        </View>
+                                    </ListItem>
+                                    }
+                                    >
+                                </FlatList>
                             </View>
                         </ScrollView>
                     </Content>
                 </Container>
-
+                <Footer>
+					<FooterTab>
+						<Button full active transparent light onPress={() => this.onComplete()} style={{backgroundColor: 'rgb(46,56,58)'}}>
+							<Icon name="md-checkmark-circle-outline" />
+								<Text style={{color: 'white'}}>Complete</Text>
+						</Button>
+					</FooterTab>
+				</Footer>
                 <Fab 
                 active={this.state.active}
                 direction="up"
@@ -88,6 +145,7 @@ export default class Edit extends Component{
                 </Fab>
 
             </Container>
+            
         );
     }
 }

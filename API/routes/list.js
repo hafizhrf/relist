@@ -29,7 +29,7 @@ router.get('/', function(req,res,next) {
 
 router.get('/:id', function(req, res, next){
   var listID = parseInt(req.params.id);
-  db.one('select * from lists where id = '+ listID)
+  db.any('select * from lists where id_todo = '+ listID)
   .then(function(data){
     res.status(200)
       .json({
@@ -44,6 +44,7 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+    req.body.idtodo = req.body.idtodo;
     req.body.list = req.body.list;
     req.body.status = req.body.status;
     db.none('insert into lists(id_todo, list, status) values (${id_todo}, ${list}, ${status})', req.body)

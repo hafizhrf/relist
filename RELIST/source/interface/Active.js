@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View,AsyncStorage, RefreshControl, FlatList} from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View,AsyncStorage, RefreshControl, FlatList, Alert} from 'react-native';
 import { Container, Content, Button, ListItem, Icon,List } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
@@ -16,7 +16,7 @@ export default class Active extends Component{
         super(props);
         this.props = props;
         this.state = {
-            todoKu: [],
+            idTodo: '',
             refreshing: false
         }
         this.user = props.appstate.user;
@@ -38,8 +38,11 @@ export default class Active extends Component{
         this.todo.getData();
     }
 
-    edit(){
+    edit = (data) => {
+        this.todo.namaTodo = data.todo;
+        this.todo.idTodo = data.id;
         Actions.edit()
+        console.log(this.todo.namaTodo);
     }
 
     render(){
@@ -51,7 +54,7 @@ export default class Active extends Component{
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
+                                    <TouchableOpacity style={{flex: 1}} onPress={()=>this.edit(data)} >      
                                         <Text style={styles.data}>{data.todo}</Text>
                                     </TouchableOpacity>                                   
                                 </View>

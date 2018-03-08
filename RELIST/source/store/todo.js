@@ -13,6 +13,8 @@ export default class Todo{
     @observable todoKu = [];
     @observable todoKuKomplit = [];
     @observable todoKuMiss = [];
+    @observable idTodo = '';
+    @observable namaTodo = '';
 
     @action
     getData(){
@@ -23,7 +25,7 @@ export default class Todo{
         
             this.todoKu = data.data
             
-        console.log(this.todoKu)
+        console.log(this.todoKu,'array todo')
         })
     }
 
@@ -62,5 +64,27 @@ export default class Todo{
           .catch(function (error) {
             console.log(error);
           });
+    }
+
+    @action
+    putData(data){
+        axios.put(`${link}/todo/${this.idTodo}`,data)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+
+    @action
+    delTodo(){
+        axios.delete(`${link}/todo/${this.idTodo}`)
+            .then(function (response) {
+            console.log(response);
+        })
+            .catch(function (error) {
+            console.log(error);
+        });
     }
 }
