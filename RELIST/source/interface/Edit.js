@@ -97,23 +97,24 @@ export default class Edit extends Component{
                         ref={(todo) => this.list =todo}
                         style={styles.input} />
                         <TouchableOpacity onPress={this.onPressButton} style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
-                            <Icon name="ios-send-outline" style={{color: 'rgb(14,18,21)', fontSize: 28}} />
+                            <Icon name="ios-add" style={{color: 'rgb(14,18,21)', fontSize: 34}} />
                         </TouchableOpacity>
                 </View>
                 <Container style={styles.dataList}>
                     <Content style={{flex: 1}}>
                         <ScrollView>
                             <View>
-                                <FlatList dataArray={this.state.data}
+                                <FlatList data={this.lists.listArray}
                                     renderItem={({item: data}) => 
                                     <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
-                                        <View style={{flexDirection: 'row'}}>
-                                            <TouchableOpacity style={{flex: 1}} >      
-                                                <Text style={styles.data}>{data}</Text>
+                                        <View>
+                                            <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} >      
+                                                <Text style={{color: 'white', marginLeft: 5}}><Icon name="md-arrow-dropright" style={{color: 'white', fontSize: 16}} /> {data.list}</Text>
                                             </TouchableOpacity>                                   
                                         </View>
                                     </ListItem>
                                     }
+                                    keyExtractor={(data, index) => data.id}
                                     >
                                 </FlatList>
                             </View>
