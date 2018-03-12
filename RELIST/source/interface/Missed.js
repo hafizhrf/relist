@@ -15,7 +15,7 @@ export default class Missed extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data : ['Hendy', 'Iqbal', 'Nung']
+            data : ['Coming Soon']
         }
         this.user = props.appstate.user;
         this.todo = props.appstate.todo;
@@ -41,19 +41,20 @@ export default class Missed extends Component{
         return(
             <Container>
                 <Content style={styles.form}>
-                <FlatList data={this.todo.todoKuMiss}
+                <Text style={{fontSize: 34, marginTop: 250 , color: '#999', fontStyle:'italic', textAlign: 'center' }}>{this.state.data}</Text>
+                {/* <FlatList data={this.state.data}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
                                     <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
-                                        <Text style={styles.data}>{data.todo}</Text>
+                                        <Text style={styles.data}>{data}</Text>
                                     </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
                         }
                         keyExtractor={(item, index) => index}
                         >
-                    </FlatList>
+                    </FlatList> */}
                 </Content>
             </Container>
         );
