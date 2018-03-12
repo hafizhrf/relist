@@ -64,18 +64,20 @@ export default class Formsignup extends Component{
                     returnKeyType="next"
                     secureTextEntry
                     autoCapitalize="none"
+                    onSubmitEditing={() => this.confirmPass.focus()}
                     onChangeText={(password) => this.setState({passWord: password})}
                     ref={(input) => this.passInput =input} 
                     style={styles.todo} />
                 <TextInput 
-                        placeholder='Confirm Password'
-                        placeholderTextColor='#999'
-                        underlineColorAndroid='white'
-                   		secureTextEntry
-                        returnKeyType="go"
-                        autoCapitalize="none"
-                        onChangeText={(teks) => this.setState({confirm: teks})} 
-                        style={styles.todo} />
+                    placeholder='Confirm Password'
+                    placeholderTextColor='#999'
+                    underlineColorAndroid='white'
+                   	secureTextEntry
+                    returnKeyType="go"
+                    autoCapitalize="none"
+                    onChangeText={(teks) => this.setState({confirm: teks})}
+                    ref={(password) => this.confirmPass =password}  
+                    style={styles.todo} />
                 </KeyboardAvoidingView>
                 <TouchableOpacity style={styles.button} onPress={this.Regis} >
                     <Text style={styles.buttonText}>{this.props.type}</Text>
