@@ -89,6 +89,7 @@ export default class Formlogin extends Component{
                     secureTextEntry
                     autoCapitalize="none"
                     style={styles.inputpass}
+                    onSubmitEditing={this.masuk}
                     onChangeText={(text) => this.setState({passWord: text})}
                     ref={(input) => this.passInput =input}
                 onSubmitEditing={this.login}

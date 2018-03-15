@@ -7,6 +7,7 @@ import RoutesIndex from './RoutesIndex';
 import Index from './login/Index';
 import Add from './interface/Add';
 import Edit from './interface/Edit';
+import EditComplete from './interface/Editcomplete';
 
 export default class Routes extends Component {
     static navigationOptions ={
@@ -21,6 +22,7 @@ export default class Routes extends Component {
                     <Scene key="index" component={Index} type="replace" title="Index" hideNavBar={true} />
                     <Scene key="add" component={Add} navTransparent={true} navBarButtonColor='#fff' title="New Project" />
                     <Scene key="edit" component={Edit} navTransparent={true} navBarButtonColor='#fff' title="Edit Project" />
+                    <Scene key="editcomplete" component={EditComplete} navTransparent={true} navBarButtonColor='#fff' title="Edit Project" />
                 </Stack>
             </Router>
         )

@@ -31,19 +31,22 @@ export default class Complete extends Component{
     //         });
     //     }
 
-    edit(){
-        Actions.edit()
+    edit = (data) => {
+        this.todo.namaTodo = data.todo;
+        this.todo.idTodo = data.id;
+        this.todo.dueDate = data.duedate;
+        Actions.editcomplete()
+        console.log(this.todo.namaTodo);
     }
 
     onRefresh = () => {
         this.setState({
             refreshing: true
         });
-        this.todo.getDatakomplit().then(() => {
+        this.todo.getDatakomplit()
             this.setState({
                 refreshing: false
             });
-        })
     }
 
     componentDidMount = () => {
@@ -57,7 +60,7 @@ export default class Complete extends Component{
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
+                                    <TouchableOpacity style={{flex: 1}} onPress={()=>this.edit(data)} >      
                                         <Text style={styles.data}>{data.todo}</Text>
                                     </TouchableOpacity>                                   
                                 </View>
@@ -67,7 +70,7 @@ export default class Complete extends Component{
                         refreshControl={
                             <RefreshControl
                             refreshing = {this.state.refreshing}
-                            onRefresh = {() => this._onRefresh}
+                            onRefresh = {() => this.onRefresh}
                             />
                         }
                         >

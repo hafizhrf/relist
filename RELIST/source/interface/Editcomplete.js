@@ -5,7 +5,6 @@ import { Actions } from 'react-native-router-flux';
 import {link} from '../config';
 import {observer, inject} from 'mobx-react/native';
 import axios from 'axios';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 
 @inject('appstate')
 @observer
@@ -22,33 +21,10 @@ export default class Edit extends Component{
             active: false,
             todoname: '',
             list: '',
-            data: [],
-            isVisible: false,
-            chosenDate: ''
+            data: []
         };
         this.todo = props.appstate.todo;
         this.lists = props.appstate.list;
-    }
-
-    handlePicker = (datetime) => {
-        this.setState({
-            isVisible: false,
-            chosenDate: moment(datetime).format('MMMM, Do YYYY HH:mm')
-        })
-        this.todo.dueDate = moment(datetime).format('MMMM, Do YYYY HH:mm')
-        console.log(this.todo.dueDate);
-    }
-
-    hidePicker = () => {
-        this.setState({
-            isVisible: false
-        })
-    }
-
-    showPicker = () => {
-        this.setState({
-            isVisible: true
-        })
     }
 
     onPressButton = () => {
@@ -63,16 +39,7 @@ export default class Edit extends Component{
             list : '',
         })
         Alert.alert('Add Item', 'You add 1 Item')
-        this.lists.getlistData();
     }
-
-    onPressDelete = () => {
-        this.lists.delAll()
-        this.todo.delTodo();
-        Alert.alert('Success', 'You Deleted this item');
-        Actions.reset('index');
-    }
-
     onPressSave = () => {
         let data = {
             todo: this.state.todoname,
@@ -98,6 +65,7 @@ export default class Edit extends Component{
     componentDidMount = () => {
         this.lists.getlistData();
     }
+
     repres = () =>{
         this.lists.getlistData(); 
     }
@@ -110,6 +78,12 @@ export default class Edit extends Component{
             });
         
       }
+      onPressDelete = () => {
+        this.lists.delAll()
+        this.todo.delTodo();
+        Alert.alert('Success', 'You Deleted this item');
+        Actions.reset('index');
+    }
 
     render(){
         console.log(this.lists.listArray.peek(),'PEEK');
@@ -121,12 +95,12 @@ export default class Edit extends Component{
                         placeholderTextColor='#fff'
                         underlineColorAndroid='white'
                         returnKeyType="next"
-                        editable={true}
+                        editable={false}
                         onSubmitEditing={() => this.list.focus()}
                         onChangeText={(teks) => this.setState({todoname: teks})}
                         style={styles.todo} />
                 </View>
-                <View style={styles.list}>
+                {/* <View style={styles.list}>
                     <TextInput 
                         placeholder='Write your List here...'
                         placeholderTextColor='#999'
@@ -138,24 +112,22 @@ export default class Edit extends Component{
                         <TouchableOpacity onPress={this.onPressButton} style={{backgroundColor: 'white', borderRadius: 25, alignItems: 'center' , justifyContent: 'center' , width: 50, height: 50, marginLeft: 10, marginRight: 10}} onPress={this.onPressButton}>
                             <Icon name="ios-add" style={{color: 'rgb(14,18,21)', fontSize: 34}} />
                         </TouchableOpacity>
-                </View>
+                </View> */}
                 <Container style={styles.dataList}>
-                    <Content style={{flex: 1}} 
-                        refreshControl={
-                            <RefreshControl
-                              refreshing={this.state.refreshing}
-                              onRefresh={this.onRefresh.bind(this)}
-                            />
-                        }>
+                    <Content style={{flex: 1}}  
+                                    refreshControl={
+                                        <RefreshControl
+                                          refreshing={this.state.refreshing}
+                                          onRefresh={this.onRefresh.bind(this)}
+                                        />
+                                    }>
                         <ScrollView>
                             <View>
                                 <FlatList data={this.lists.listArray}
                                     renderItem={({item: data}) => 
                                     <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
-                                        <View>
-                                            <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} >
-                                                <Text style={{color: 'white', marginLeft: 5}}><Icon name="md-arrow-dropright" style={{color: 'white', fontSize: 16}} /> {data.list}</Text>
-                                            </TouchableOpacity>                                   
+                                        <View>     
+                                                <Text style={{color: 'white', marginLeft: 5}}><Icon name="md-arrow-dropright" style={{color: 'white' ,fontSize: 16}} /> {data.list}</Text>                                
                                         </View>
                                     </ListItem>
                                     }
@@ -172,41 +144,15 @@ export default class Edit extends Component{
                         </ScrollView>
                     </Content>
                 </Container>
-                <View>
-                    <TouchableOpacity onPress={() => this.showPicker()}>
-                        <Text style={styles.dueText}>{this.todo.dueDate}</Text>
-                    </TouchableOpacity>
-                    <DateTimePicker
-                          isVisible={this.state.isVisible}
-                          onConfirm={this.handlePicker}
-                          onCancel={this.hidePicker}
-                          mode={'datetime'}
-                          is24Hour={true} />
-                </View>
-                <Footer>
-					<FooterTab>
-						<Button full active transparent light onPress={() => this.onComplete()} style={{backgroundColor: 'rgb(46,56,58)'}}>
-							<Icon name="md-checkmark-circle-outline" />
-								<Text style={{color: 'white'}}>Complete</Text>
-						</Button>
-					</FooterTab>
-				</Footer>
                 <Fab 
                 active={this.state.active}
                 direction="up"
                 containerStyle={{ }}
                 position="bottomRight"
-                style={{backgroundColor: 'white'}}
+                style={{backgroundColor: 'red'}}
                 onPress={() => this.setState({ active: !this.state.active })}>
-                <Icon name="md-more" style={{color: 'black'}} />
-                    <Button style={{ backgroundColor: 'red' }} onPress={this.onPressDelete} >
-                        <Icon name="md-trash"/>
-                    </Button>
-                    <Button style={{ backgroundColor: '#2196f3' }} onPress={this.onPressSave} >
-                        <Icon name="md-done-all"/>
-                    </Button>
+                <Icon name="md-trash" style={{color: 'white'}} onPress={this.onPressDelete} />
                 </Fab>
-
             </Container>
             
         );
@@ -234,7 +180,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         marginBottom: 10,
-        top: 160,
+        top: 85,
         left: 0
     },
 
@@ -257,16 +203,4 @@ const styles = StyleSheet.create({
         marginRight: 10,
         marginBottom: 20,  
     },
-
-    // dueView: {
-
-    // },
-
-    dueText: {
-        color: 'white',
-        marginBottom: 20,
-        textAlign: 'center',
-        fontSize: 14,
-        fontStyle: 'italic'
-    }
 });

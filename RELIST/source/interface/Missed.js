@@ -41,13 +41,13 @@ export default class Missed extends Component{
         return(
             <Container>
                 <Content style={styles.form}>
-                <Text style={{fontSize: 34, marginTop: 250 , color: '#999', fontStyle:'italic', textAlign: 'center' }}>{this.state.data}</Text>
-                {/* <FlatList data={this.state.data}
+                <Text style={styles.coming}> Coming Soon </Text>
+                {/* <FlatList data={this.todo.todoKuMiss}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit} >      
-                                        <Text style={styles.data}>{data}</Text>
+                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit}>      
+                                        <Text style={styles.data}>{data.todo}</Text>
                                     </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
@@ -66,7 +66,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgb(46,56,58)',
     },
-
+    coming: {
+        color: '#999',
+        fontSize: 34,
+        textAlign: 'center',
+        fontStyle: 'italic'
+    },
     del: {
         width: 30,
         height: 30,

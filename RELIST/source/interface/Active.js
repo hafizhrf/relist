@@ -23,16 +23,19 @@ export default class Active extends Component{
         this.todo = props.appstate.todo;
     }
 
+    repres = () =>{
+        this.todo.getData();
+    }
+
+
     onRefresh = () => {
-        this.setState({
-            refreshing: true
-        });
-        this.todo.getData().then(() => {
+        this.setState({refreshing: true});
+        this.repres();
             this.setState({
                 refreshing: false
             });
-        })
-    }
+        
+      }
     
     componentDidMount = () => {
         this.todo.getData();
@@ -41,6 +44,7 @@ export default class Active extends Component{
     edit = (data) => {
         this.todo.namaTodo = data.todo;
         this.todo.idTodo = data.id;
+        this.todo.dueDate = data.duedate;
         Actions.edit()
         console.log(this.todo.namaTodo);
     }
@@ -49,7 +53,13 @@ export default class Active extends Component{
         console.log(this.todo.todoKu.peek(),'PEEK');
         return(
             <Container>
-                <Content style={styles.form}>
+                <Content style={styles.form} 
+                        refreshControl={
+                            <RefreshControl
+                              refreshing={this.state.refreshing}
+                              onRefresh={this.onRefresh.bind(this)}
+                            />
+                        }>
                     <FlatList data={this.todo.todoKu}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
@@ -63,10 +73,10 @@ export default class Active extends Component{
                         keyExtractor={(data, index) => data.id}
                         refreshControl={
                             <RefreshControl
-                            refreshing = {this.state.refreshing}
-                            onRefresh = {() => this._onRefresh}
+                              refreshing={this.state.refreshing}
+                              onRefresh={this.onRefresh.bind(this)}
                             />
-                        }
+                        }   
                         >
                     </FlatList>
                 </Content>

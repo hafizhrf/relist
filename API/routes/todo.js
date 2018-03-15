@@ -97,8 +97,8 @@ router.get('/aktif/:id', function(req, res, next){
 router.post('/', function(req, res, next){
     req.body.iduser = req.body.iduser;
     req.body.todo = req.body.todo;
-    req.body.duedate = moment().format('lll');
-    req.body.createdat = moment().calendar();
+    req.body.duedate = req.body.duedate;
+    req.body.createdat = moment().format('MMMM, Do YYYY HH:mm');
     req.body.status = req.body.status;
     db.none('insert into todos(id_user, todo, duedate, createdat, status) values (${id_user}, ${todo}, ${duedate}, ${createdat}, ${status})', req.body)
         .then(function(){
