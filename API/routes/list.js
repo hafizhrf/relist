@@ -78,7 +78,7 @@ router.put('/:id', function(req, res, next){
 
 router.delete('/:id', function(req, res, next){
     var userID = parseInt(req.params.id);
-    db.result('delete from lists where id = '+ userID)
+    db.result('delete from lists where id_todo = '+ userID)
         .then(function(){          
             res.status(200)
             .json({
@@ -91,4 +91,18 @@ router.delete('/:id', function(req, res, next){
         });
     });
 
+    router.delete('/one/:id', function(req, res, next){
+        var ID = parseInt(req.params.id);
+        db.result('delete from lists where id = '+ ID)
+            .then(function(){          
+                res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Deleted list with ID '+ ID
+                });
+            })
+            .catch(function(err){
+                return next(err);
+            });
+        });
 module.exports = router;

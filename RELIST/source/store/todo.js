@@ -15,16 +15,19 @@ export default class Todo{
     @observable todoKuMiss = [];
     @observable idTodo = '';
     @observable namaTodo = '';
+    @observable isLoading = '';
+    @observable dueDate = '';
 
     @action
     getData(){
         console.log('jalannn');
+        this.isLoading = true;
         fetch(`${link}/todo/aktif/${this.ctx.user.userDatas.id}`)
         .then((response) => response.json())
         .then((data) => {
         
             this.todoKu = data.data
-            
+            this.isLoading = false;
         console.log(this.todoKu,'array todo')
         })
     }

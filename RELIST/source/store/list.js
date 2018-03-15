@@ -19,7 +19,7 @@ export default class List{
         .then((response) => response.json())
         .then((data) => {
             this.listArray = data.data
-        console.log(this.listArray,'array list')
+        console.log(data.data,'array list')
         })
     }
 
@@ -31,6 +31,17 @@ export default class List{
     })
     .catch(function (error) {
       console.log(error);
+    });
+   }
+
+   @action
+   delAll(){
+    axios.delete(`${link}/list/${this.ctx.todo.idTodo}`)
+    .then(function (response) {
+    console.log(response);
+    })
+    .catch(function (error) {
+    console.log(error);
     });
    }
 }
