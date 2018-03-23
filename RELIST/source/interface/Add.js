@@ -7,7 +7,7 @@ import index from '../login/Index';
 import axios from 'axios';
 import {observer, inject} from 'mobx-react/native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import moment from 'moment'
+import moment from 'moment';
 
 
 @inject('appstate')
@@ -64,9 +64,9 @@ export default class Add extends Component{
     handlePicker = (datetime) => {
         this.setState({
             isVisible: false,
-            chosenDate: moment(datetime).format('MMMM, Do YYYY HH:mm')
+            chosenDate: moment(datetime).format('MMMM Do YYYY, HH:mm')
         })
-        this.todo.dueDate = moment(datetime).format('MMMM, Do YYYY HH:mm')
+        this.todo.dueDate = moment(datetime).format('MMMM Do YYYY, HH:mm')
         console.log(this.todo.dueDate);
     }
 

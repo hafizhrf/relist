@@ -6,6 +6,7 @@ import {link} from '../config';
 import {observer, inject} from 'mobx-react/native';
 import axios from 'axios';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import moment from 'moment';
 
 @inject('appstate')
 @observer
@@ -33,9 +34,9 @@ export default class Edit extends Component{
     handlePicker = (datetime) => {
         this.setState({
             isVisible: false,
-            chosenDate: moment(datetime).format('MMMM, Do YYYY HH:mm')
+            chosenDate: moment(datetime).format('MMMM Do YYYY, HH:mm')
         })
-        this.todo.dueDate = moment(datetime).format('MMMM, Do YYYY HH:mm')
+        this.todo.dueDate = moment(datetime).format('MMMM Do YYYY, HH:mm')
         console.log(this.todo.dueDate);
     }
 
@@ -139,40 +140,7 @@ export default class Edit extends Component{
                             <Icon name="ios-add" style={{color: 'rgb(14,18,21)', fontSize: 34}} />
                         </TouchableOpacity>
                 </View>
-                <Container style={styles.dataList}>
-                    <Content style={{flex: 1}} 
-                        refreshControl={
-                            <RefreshControl
-                              refreshing={this.state.refreshing}
-                              onRefresh={this.onRefresh.bind(this)}
-                            />
-                        }>
-                        <ScrollView>
-                            <View>
-                                <FlatList data={this.lists.listArray}
-                                    renderItem={({item: data}) => 
-                                    <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
-                                        <View>
-                                            <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} >
-                                                <Text style={{color: 'white', marginLeft: 5}}><Icon name="md-arrow-dropright" style={{color: 'white', fontSize: 16}} /> {data.list}</Text>
-                                            </TouchableOpacity>                                   
-                                        </View>
-                                    </ListItem>
-                                    }
-                                    keyExtractor={(data, index) => data.id}
-                                    refreshControl={
-                                        <RefreshControl
-                                          refreshing={this.state.refreshing}
-                                          onRefresh={this.onRefresh.bind(this)}
-                                        />
-                                    }
-                                    >
-                                </FlatList>
-                            </View>
-                        </ScrollView>
-                    </Content>
-                </Container>
-                <View>
+                <View style={styles.dueDate}>
                     <TouchableOpacity onPress={() => this.showPicker()}>
                         <Text style={styles.dueText}>{this.todo.dueDate}</Text>
                     </TouchableOpacity>
@@ -183,6 +151,31 @@ export default class Edit extends Component{
                           mode={'datetime'}
                           is24Hour={true} />
                 </View>
+                <Container style={styles.dataList}>
+                    <Content style={{flex: 1}}   
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this.onRefresh.bind(this)}/>
+                            }>
+                    <ScrollView>
+                        <View>
+                            <FlatList data={this.lists.listArray}
+                                renderItem={({item: data}) => 
+                                <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
+                                    <ScrollView>
+                                        <TouchableOpacity style={{flex: 1, flexDirection: 'row'}} >
+                                            <Text style={{color: 'white', marginLeft: 5}}><Icon name="md-arrow-dropright" style={{color: 'white', fontSize: 16}} /> {data.list}</Text>
+                                        </TouchableOpacity>                                   
+                                    </ScrollView>
+                                </ListItem>
+                                }
+                                keyExtractor={(data, index) => data.id}>
+                            </FlatList>
+                        </View>
+                    </ScrollView>
+                    </Content>
+                </Container>
                 <Footer>
 					<FooterTab>
 						<Button full active transparent light onPress={() => this.onComplete()} style={{backgroundColor: 'rgb(46,56,58)'}}>
@@ -228,6 +221,11 @@ const styles = StyleSheet.create({
         marginTop: 10,
         top: 110,
         left: 0
+    },
+
+    dueDate: {
+        marginTop: 10,
+        top: 170,
     },
 
     dataList: {
