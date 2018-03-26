@@ -64,9 +64,9 @@ export default class Add extends Component{
     handlePicker = (datetime) => {
         this.setState({
             isVisible: false,
-            chosenDate: moment(datetime).format('MMMM Do YYYY, HH:mm')
+            chosenDate: moment(datetime).format('DD-MM-YYYY')
         })
-        this.todo.dueDate = moment(datetime).format('MMMM Do YYYY, HH:mm')
+        this.todo.dueDate = moment(datetime).format('DD-MM-YYYY')
         console.log(this.todo.dueDate);
     }
 
@@ -137,7 +137,7 @@ export default class Add extends Component{
                           isVisible={this.state.isVisible}
                           onConfirm={this.handlePicker}
                           onCancel={this.hidePicker}
-                          mode={'datetime'}
+                          mode={'date'}
                           is24Hour={true} />
                         <Button full active transparent light onPress={() => this.showPicker()} style={{backgroundColor: 'rgb(46,56,58)'}}>
                             <Icon name="ios-alarm-outline" />

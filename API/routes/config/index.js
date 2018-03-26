@@ -1,5 +1,5 @@
 var name = 'postgres';
-var pass = 'saico_87';
+var pass = 'yuihirasawa';
 var host = 'localhost:5432';
 var db = 'relist';
 

@@ -80,12 +80,22 @@ router.get('/aktif/:id', function(req, res, next){
   router.get('/miss/:id', function(req, res, next){
     var todoID = parseInt(req.params.id);
     var aktif = 'Active';
-    db.any("select * from todos where id_user = '"+ todoID+"' and status = 'Missed'")
-    .then(function(data){   
+    db.any("select * from todos where id_user = '"+ todoID+"'")
+    .then(function(data){
+      const newData = data.map(row=>{
+          if(row.status == 'Active'){
+            if(moment(new Date().toISOString()).isSameOrAfter(row.duedate)){
+                row.status = 'Missed'
+            }
+          }
+          return row;
+      }).filter((stat)=>{
+          return stat.status == 'Missed'
+      })
       res.status(200)
         .json({
           status: 'success',
-          data : data,
+          data :newData,
           message: 'Retrieved from ID '+todoID
         });
       })
@@ -98,7 +108,7 @@ router.post('/', function(req, res, next){
     req.body.iduser = req.body.iduser;
     req.body.todo = req.body.todo;
     req.body.duedate = req.body.duedate;
-    req.body.createdat = moment().format('MMMM, Do YYYY HH:mm');
+    req.body.createdat = moment().format('DD-MM-YYYY');
     req.body.status = req.body.status;
     db.none('insert into todos(id_user, todo, duedate, createdat, status) values (${id_user}, ${todo}, ${duedate}, ${createdat}, ${status})', req.body)
         .then(function(){

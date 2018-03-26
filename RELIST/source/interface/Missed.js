@@ -42,7 +42,7 @@ export default class Missed extends Component{
             <Container>
                 <Content style={styles.form}>
                 <Text style={styles.coming}> Coming Soon </Text>
-                {/* <FlatList data={this.todo.todoKuMiss}
+                <FlatList data={this.todo.todoKuMiss}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
@@ -54,7 +54,7 @@ export default class Missed extends Component{
                         }
                         keyExtractor={(item, index) => index}
                         >
-                    </FlatList> */}
+                    </FlatList>
                 </Content>
             </Container>
         );
