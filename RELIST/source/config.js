@@ -1,1 +1,1 @@
-export const link= 'http://192.168.100.10:212';
+export const link= 'http://192.168.100.17:212';
