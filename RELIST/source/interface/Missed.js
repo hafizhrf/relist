@@ -41,7 +41,6 @@ export default class Missed extends Component{
         return(
             <Container>
                 <Content style={styles.form}>
-                <Text style={styles.coming}> Coming Soon </Text>
                 <FlatList data={this.todo.todoKuMiss}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
