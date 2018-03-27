@@ -55,7 +55,13 @@ export default class Complete extends Component{
     render(){
         return(
             <Container>
-                <Content style={styles.form}>
+                <Content style={styles.form}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {() => this.onRefresh}
+                            />
+                        }>
                 <FlatList data={this.todo.todoKuKomplit}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >

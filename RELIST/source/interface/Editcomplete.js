@@ -40,28 +40,7 @@ export default class Edit extends Component{
         })
         Alert.alert('Add Item', 'You add 1 Item')
     }
-    onPressSave = () => {
-        let data = {
-            todo: this.state.todoname,
-            duedate: '',
-            status: 'Active'
-          }
-        this.todo.putData(data);
-        Alert.alert('Success', 'You Edit this item');
-        Actions.reset('index');
-    }
-
-    onComplete = () =>{
-        let datacom ={
-            todo: this.todo.namaTodo,
-            duedate: '',
-            status: 'Complete'
-        }
-        this.todo.putData(datacom);
-        Alert.alert('Success', 'You Todo has completed');
-        Actions.reset('index');
-    }
-
+    
     componentDidMount = () => {
         this.lists.getlistData();
     }
@@ -114,13 +93,7 @@ export default class Edit extends Component{
                         </TouchableOpacity>
                 </View> */}
                 <Container style={styles.dataList}>
-                    <Content style={{flex: 1}}  
-                                    refreshControl={
-                                        <RefreshControl
-                                          refreshing={this.state.refreshing}
-                                          onRefresh={this.onRefresh.bind(this)}
-                                        />
-                                    }>
+                    <Content style={{flex: 1}}>
                         <ScrollView>
                             <View>
                                 <FlatList data={this.lists.listArray}
@@ -131,14 +104,7 @@ export default class Edit extends Component{
                                         </View>
                                     </ListItem>
                                     }
-                                    keyExtractor={(data, index) => data.id}
-                                    refreshControl={
-                                        <RefreshControl
-                                          refreshing={this.state.refreshing}
-                                          onRefresh={this.onRefresh.bind(this)}
-                                        />
-                                    }
-                                    >
+                                    keyExtractor={(data, index) => data.id}>
                                 </FlatList>
                             </View>
                         </ScrollView>
