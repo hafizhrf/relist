@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 export default class Lib extends Component{
     Regis=()=>{
-        axios.post('http://192.168.100.16:212/user', {
+        axios.post('http://192.168.100.21:212/user', {
         username: this.state.userName,
         password: this.state.passWord
     })

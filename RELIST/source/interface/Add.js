@@ -64,9 +64,9 @@ export default class Add extends Component{
     handlePicker = (datetime) => {
         this.setState({
             isVisible: false,
-            chosenDate: moment(datetime).format('DD-MM-YYYY')
+            chosenDate: moment(datetime).format()
         })
-        this.todo.dueDate = moment(datetime).format('DD-MM-YYYY')
+        this.todo.dueDate = moment(datetime).format()
         console.log(this.todo.dueDate);
     }
 
