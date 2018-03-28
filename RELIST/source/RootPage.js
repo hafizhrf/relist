@@ -17,16 +17,19 @@ import Apidemo from '../utilities/api/Apidemo';
 import { Container, Content, Header, Body, Icon, List, Button, Footer, FooterTab } from 'native-base';
 import { StackNavigator, NavigationAction, TabNavigator,DrawerNavigator, DrawerItems } from 'react-navigation';
 import {observer, inject} from 'mobx-react/native';
+import pick from './store/Picker';
 
 
 @inject('appstate')
 @observer
+
 export default class RootPage extends Component{
 	constructor(props){
         super(props);
         this.props = props;
         this.state = {
-            refreshing: false
+			refreshing: false,
+			avatarSource: null
         }
         this.user = props.appstate.user;
     }
@@ -44,13 +47,15 @@ export default class RootPage extends Component{
     }
 
 	render(){
+		let img = this.state.avatarSource == null? null:
+		<Image style={styles.drawerImage} source={this.state.avatarSource} />
 		return(
 			<Container>
 				<Content style={{backgroundColor:'#ffffff'}}>
 					<List>	
 						<Header androidStatusBarColor="rgb(46,56,58)" style={{ height: 200, backgroundColor: 'rgb(46,56,58)'}}>
 							<Body style={{alignItems: 'center', justifyContent: 'center',}}>
-								<Image style={styles.drawerImage} source={require('./image/icon.png')} />
+								<TouchableOpacity onPress={this.show.bind(this)}><Text style={{color: 'white'}}>Upload Image</Text></TouchableOpacity>{img}
 								<Text style={{color: 'white'}}>Name : {this.user.userDatas.username}</Text>
 							</Body>
 						</Header>
@@ -70,6 +75,9 @@ export default class RootPage extends Component{
 				</Footer>
 			</Container>
 		);
+	}
+	show(){
+		pick(source => this.setState({avatarSource: source}));
 	}
 }
 
