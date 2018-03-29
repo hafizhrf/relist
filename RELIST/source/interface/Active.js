@@ -24,7 +24,7 @@ export default class Active extends Component{
     }
 
     repres = () =>{
-        this.todo.getData();
+        this.todo.getDatamiss();
     }
 
 
@@ -38,7 +38,7 @@ export default class Active extends Component{
       }
     
     componentDidMount = () => {
-        this.todo.getData();
+        this.todo.getDatamiss();
     }
 
     edit = (data) => {
@@ -50,7 +50,7 @@ export default class Active extends Component{
     }
 
     render(){
-        console.log(this.todo.todoKu.peek(),'PEEK');
+        console.log(this.todo.todoKuMiss.peek(),'PEEK');
         return(
             <Container>
                 <Content style={styles.form} 
@@ -60,7 +60,8 @@ export default class Active extends Component{
                               onRefresh={this.onRefresh.bind(this)}
                             />
                         }>
-                    <FlatList data={this.todo.todoKu}
+        
+                    <FlatList data={this.todo.todoKuMiss.filter(item => item.status == "Active")}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>

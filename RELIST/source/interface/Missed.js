@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity, Text, View, FlatList} from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, View, FlatList, RefreshControl} from 'react-native';
 import { Container, Content, Button, List, ListItem } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-
 import Add from './Add';
 import {observer, inject} from 'mobx-react/native';
 
 
 @inject('appstate')
 @observer
-export default class Missed extends Component{
+export default class Complete extends Component{
 
     constructor(props){
         super(props);
         this.state = {
-            data : ['Coming Soon']
+            refreshing : false
         }
         this.user = props.appstate.user;
-        this.todo = props.appstate.todo;
+        this.todo = props.appstate.todo;     
     }
 
     // componentDidMount(){
@@ -31,27 +30,54 @@ export default class Missed extends Component{
     //         });
     //     }
 
-    edit(){
-        Actions.edit()
+    edit = (data) => {
+        this.todo.namaTodo = data.todo;
+        this.todo.idTodo = data.id;
+        this.todo.dueDate = data.duedate;
+        Actions.editcomplete()
+        console.log(this.todo.namaTodo);
     }
+
+    onRefresh = () => {
+        this.setState({
+            refreshing: true
+        });
+        this.todo.getDatamiss()
+            this.setState({
+                refreshing: false
+            });
+    }
+
     componentDidMount = () => {
         this.todo.getDatamiss();
     }
     render(){
         return(
             <Container>
-                <Content style={styles.form}>
-                <FlatList data={this.todo.todoKuMiss}
+                <Content style={styles.form}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {() => this.onRefresh}
+                            />
+                        }>
+                <FlatList data={this.todo.todoKuMiss.filter(item => item.status == "Missed")}
                         renderItem={({item: data}) => 
                             <ListItem noBorder style={{marginLeft: 0,paddingBottom: 5, paddingTop: 5, paddingRight: 10, paddingLeft: 10}} >
                                 <View style={{flexDirection: 'row'}}>
-                                    <TouchableOpacity style={{flex: 1}} onPress={this.edit}>      
+                                    <TouchableOpacity style={{flex: 1}} onPress={()=>this.edit(data)} >      
                                         <Text style={styles.data}>{data.todo}</Text>
                                     </TouchableOpacity>                                   
                                 </View>
                             </ListItem>
                         }
-                        keyExtractor={(item, index) => index}
+                        keyExtractor={(data, index) => data.id}
+                        refreshControl={
+                            <RefreshControl
+                            refreshing = {this.state.refreshing}
+                            onRefresh = {() => this.onRefresh}
+                            />
+                        }
                         >
                     </FlatList>
                 </Content>
@@ -65,12 +91,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'rgb(46,56,58)',
     },
-    coming: {
-        color: '#999',
-        fontSize: 34,
-        textAlign: 'center',
-        fontStyle: 'italic'
-    },
+
     del: {
         width: 30,
         height: 30,

@@ -26,8 +26,9 @@ export default class List{
    @action
    postList(data){
     axios.post(`${link}/list`,data)
-    .then(function (response) {
-      console.log(response);
+    .then((response) => {
+        this.getlistData();
+        return response;
     })
     .catch(function (error) {
       console.log(error);
@@ -37,8 +38,9 @@ export default class List{
    @action
    delAll(){
     axios.delete(`${link}/list/${this.ctx.todo.idTodo}`)
-    .then(function (response) {
-    console.log(response);
+    .then((response) => {
+        this.getlistData();
+        return response;
     })
     .catch(function (error) {
     console.log(error);

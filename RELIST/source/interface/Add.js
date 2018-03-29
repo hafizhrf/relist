@@ -30,18 +30,36 @@ export default class Add extends Component{
     }
 
     addTodo = () => {
-        let data = {
-            id_user: this.user.userDatas.id,
-            todo: this.state.todoname,
-            duedate: this.todo.dueDate,
-            createdat: '',
-            status: 'Active'
-          }
-
-          this.todo.postData(data);
-            this.todo.getData();
-            Alert.alert('Save Item', 'You saving this item')
-            Actions.reset('index');
+        if(this.todo.dueDate == ''){
+            let data = {
+                id_user: this.user.userDatas.id,
+                todo: this.state.todoname,
+                createdat: '',
+                status: 'Active'
+              }
+    
+              this.todo.postData(data);
+                this.todo.getData();
+                Alert.alert('Save Item', 'You saving this item')
+                Actions.reset('index');
+            console.log('kosong')
+        }
+        else{
+            let data = {
+                id_user: this.user.userDatas.id,
+                todo: this.state.todoname,
+                duedate: this.todo.dueDate,
+                createdat: '',
+                status: 'Active'
+              }
+    
+              this.todo.postData(data);
+                this.todo.getData();
+                Alert.alert('Save Item', 'You saving this item')
+                Actions.reset('index');
+            console.log('ada')
+        }
+        
           
 
          

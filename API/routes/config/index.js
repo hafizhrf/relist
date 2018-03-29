@@ -1,5 +1,5 @@
 var name = 'postgres';
-var pass = 'Aditia12345';
+var pass = 'yuihirasawa';
 var host = 'localhost:5432';
 var db = 'relist';
 

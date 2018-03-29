@@ -18,25 +18,27 @@ export default class Edit extends Component{
 
     constructor(props) {
         super(props);
+        this.todo = props.appstate.todo;
+        this.lists = props.appstate.list;
         this.state = {
             refreshing: false,
             active: false,
-            todoname: '',
+            todoname: this.todo.namaTodo,
             list: '',
             data: [],
             isVisible: false,
             chosenDate: ''
         };
-        this.todo = props.appstate.todo;
-        this.lists = props.appstate.list;
+        
+        
     }
 
     handlePicker = (datetime) => {
         this.setState({
             isVisible: false,
-            chosenDate: moment(datetime).format('MMMM Do YYYY, HH:mm')
+            chosenDate: moment(datetime).format()
         })
-        this.todo.dueDate = moment(datetime).format('MMMM Do YYYY, HH:mm')
+        this.todo.dueDate = moment(datetime).format()
         console.log(this.todo.dueDate);
     }
 
@@ -77,21 +79,21 @@ export default class Edit extends Component{
     onPressSave = () => {
         let data = {
             todo: this.state.todoname,
-            duedate: '',
+            duedate: this.todo.dueDate,
             status: 'Active'
           }
         this.todo.putData(data);
+        console.log(this.todo.dueDate)
         Alert.alert('Success', 'You Edit this item');
         Actions.reset('index');
+        
     }
 
     onComplete = () =>{
         let datacom ={
-            todo: this.todo.namaTodo,
-            duedate: '',
             status: 'Complete'
         }
-        this.todo.putData(datacom);
+        this.todo.putDataComplit(datacom);
         Alert.alert('Success', 'You Todo has completed');
         Actions.reset('index');
     }
@@ -117,13 +119,11 @@ export default class Edit extends Component{
         return(
             <Container style={{backgroundColor: 'rgb(48,56,58)'}}>
                 <View style={styles.UI}>
-                    <TextInput 
-                        placeholder={this.todo.namaTodo}
-                        placeholderTextColor='#fff'
+                    <TextInput
                         underlineColorAndroid='white'
                         returnKeyType="next"
-                        editable={true}
-                        onSubmitEditing={() => this.list.focus()}
+                        value={this.state.todoname}
+                        editable={true}ting={() => this.list.focus()}
                         onChangeText={(teks) => this.setState({todoname: teks})}
                         style={styles.todo} />
                 </View>
@@ -141,14 +141,15 @@ export default class Edit extends Component{
                         </TouchableOpacity>
                 </View>
                 <View style={styles.dueDate}>
+                    <Text style={styles.dueText}>{this.todo.dueDate}</Text>
                     <TouchableOpacity onPress={() => this.showPicker()}>
-                        <Text style={styles.dueText}>{this.todo.dueDate}</Text>
+                    <Text style={styles.dueText}>Change Reminder</Text>
                     </TouchableOpacity>
                     <DateTimePicker
                           isVisible={this.state.isVisible}
                           onConfirm={this.handlePicker}
                           onCancel={this.hidePicker}
-                          mode={'datetime'}
+                          mode={'date'}
                           is24Hour={true} />
                 </View>
                 <Container style={styles.dataList}>

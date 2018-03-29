@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
+var moment = require('moment-timezone');
 var promise = require('bluebird');
 var connectionString = require('./config/index');
 var options = {
@@ -84,13 +85,11 @@ router.get('/aktif/:id', function(req, res, next){
     .then(function(data){
       const newData = data.map(row=>{
           if(row.status == 'Active'){
-            if(moment(new Date().toISOString()).isSameOrAfter(row.duedate)){
+            if(moment(new Date().toISOString()).isAfter(row.duedate)){
                 row.status = 'Missed'
             }
           }
           return row;
-      }).filter((stat)=>{
-          return stat.status == 'Missed'
       })
       res.status(200)
         .json({
@@ -107,8 +106,8 @@ router.get('/aktif/:id', function(req, res, next){
 router.post('/', function(req, res, next){
     req.body.iduser = req.body.iduser;
     req.body.todo = req.body.todo;
-    req.body.duedate = req.body.duedate;
-    req.body.createdat = moment().format('DD-MM-YYYY');
+    req.body.duedate = req.body.duedate
+    req.body.createdat = moment().tz("Indonesia/Jakarta").format();
     req.body.status = req.body.status;
     db.none('insert into todos(id_user, todo, duedate, createdat, status) values (${id_user}, ${todo}, ${duedate}, ${createdat}, ${status})', req.body)
         .then(function(){
@@ -123,10 +122,28 @@ router.post('/', function(req, res, next){
         });
     });
 
+    router.post('/kosong', function(req, res, next){
+        req.body.iduser = req.body.iduser;
+        req.body.todo = req.body.todo;
+        req.body.createdat = moment().tz("Indonesia/Jakarta").format();
+        req.body.status = req.body.status;
+        db.none('insert into todos(id_user, todo, createdat, status) values (${id_user}, ${todo}, ${createdat}, ${status})', req.body)
+            .then(function(){
+                res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Added one ToDo'
+                });
+            })
+            .catch(function(err){
+                return next(err);
+            });
+        });
+
 router.put('/:id', function(req, res, next){
     var todoID = parseInt(req.params.id);
     db.none(`update todos set todo = $1, duedate = $2, status = $3 where id = ` + todoID, 
-    [req.body.todo, req.body.duedate = moment().format('lll'), req.body.status, parseInt(req.body.id)])
+    [req.body.todo, req.body.duedate, req.body.status, parseInt(req.body.id)])
         .then(function(){
             res.status(200)
             .json({
@@ -138,6 +155,22 @@ router.put('/:id', function(req, res, next){
             return next(err);
         }); 
     });
+
+    router.put('/status/:id', function(req, res, next){
+        var todoID = parseInt(req.params.id);
+        db.none(`update todos set status = $1 where id = ` + todoID, 
+        [req.body.status, parseInt(req.body.id)])
+            .then(function(){
+                res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Updated one User with ID '+ todoID
+                });
+            })
+            .catch(function(err){
+                return next(err);
+            }); 
+        });
 
 router.delete('/:id', function(req, res, next){
     var todoID = parseInt(req.params.id);

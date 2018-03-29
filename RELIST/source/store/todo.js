@@ -61,20 +61,51 @@ export default class Todo{
     @action
     postData(data){
         axios.post(`${link}/todo`,data)
-          .then(function (response) {
-            console.log(response);
-          })
+        .then((response) => {
+            this.getDatamiss();
+            return response;
+        })
+        //   .then(function (response) {
+        //       this.getDatamiss();
+        //     console.log(response);
+        //   })
           .catch(function (error) {
             console.log(error);
           });
     }
 
+
+    @action
+    postDataKosong(data){
+        axios.post(`${link}/todo/kosong`,data)
+        .then((response) => {
+            this.getDatamiss();
+            return response;
+        })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+    
     @action
     putData(data){
         axios.put(`${link}/todo/${this.idTodo}`,data)
-          .then(function (response) {
-            console.log(response);
-          })
+            .then((response) => {
+                this.getDatamiss();
+                return response;
+            })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+    
+    @action
+    putDataComplit(data){
+        axios.put(`${link}/todo/status/${this.idTodo}`,data)
+        .then((response) => {
+            this.getDatamiss();
+            return response;
+        })
           .catch(function (error) {
             console.log(error);
           });
@@ -83,8 +114,9 @@ export default class Todo{
     @action
     delTodo(){
         axios.delete(`${link}/todo/${this.idTodo}`)
-            .then(function (response) {
-            console.log(response);
+        .then((response) => {
+            this.getDatamiss();
+            return response;
         })
             .catch(function (error) {
             console.log(error);
