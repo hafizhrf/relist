@@ -10,7 +10,8 @@ import {
     KeyboardAvoidingView,
     TouchableNativeFeedback,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {link} from '../config';
@@ -29,7 +30,8 @@ export default class Formlogin extends Component{
         this.props = props;
             this.state = {
                 userName: '',
-                passWord: ''
+                passWord: '',
+                hidePassword: true
         }
         this.user = props.appstate.user;
     }
@@ -66,6 +68,11 @@ export default class Formlogin extends Component{
         Actions.reset('index')
     }
 
+    managePasswordVisibility = () =>
+    {
+        this.setState({ hidePassword: !this.state.hidePassword });
+    }
+
     render(){
         return(
             <View style={styles.container}>
@@ -81,19 +88,24 @@ export default class Formlogin extends Component{
                     onSubmitEditing={() => this.passInput.focus()}
                     style={styles.input}
                 />
-                <TextInput
-                    placeholder='Password'
-                    placeholderTextColor='#000'
-                    underlineColorAndroid='transparent'
-                    returnKeyType="go"
-                    secureTextEntry
-                    autoCapitalize="none"
-                    style={styles.inputpass}
-                    onSubmitEditing={this.masuk}
-                    onChangeText={(text) => this.setState({passWord: text})}
-                    ref={(input) => this.passInput =input}
-                onSubmitEditing={this.login}
-                />
+                <View style={{ width:310 }}>
+                    <TextInput
+                        placeholder='Password'
+                        placeholderTextColor='#000'
+                        underlineColorAndroid='transparent'
+                        returnKeyType="go"
+                        secureTextEntry = {this.state.hidePassword}
+                        autoCapitalize="none"
+                        style={styles.inputpass}
+                        onSubmitEditing={this.masuk}
+                        onChangeText={(text) => this.setState({passWord: text})}
+                        ref={(input) => this.passInput =input}
+                        onSubmitEditing={this.login}
+                    />
+                     <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
+                            <Image source = {( this.state.hidePassword) ? require('../image/invisible.png') : require('../image/eye.png')} style = { styles.btnImage } />                    
+                            </TouchableOpacity>
+                    </View>
                 </KeyboardAvoidingView>
                 <TouchableOpacity style={styles.button} onPress={this.masuk}>
                     <Text style={styles.buttonText}>{this.props.type}</Text>
@@ -142,5 +154,35 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '500',
-    }
+    },
+    textBoxBtnHolder: {
+        position: 'relative',
+        alignSelf: 'stretch',
+        justifyContent: 'center'
+    }, 
+   textBox: {
+       fontSize: 18,
+       alignSelf: 'stretch',
+       height: 45,
+       paddingRight: 45,
+       borderWidth: 1,
+       paddingVertical: 0,
+       borderColor: 5,
+       color: 'red'
+   },
+   visibilityBtn: {
+       position: 'absolute',
+       right: 3,
+       height: 40,
+       width: 35,
+       padding: 5
+   },
+   
+   btnImage: {
+       resizeMode: 'contain',
+       height: '100%',
+       width: '100%',
+       marginTop: 11,
+       marginLeft:5
+   },
 });

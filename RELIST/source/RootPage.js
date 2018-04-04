@@ -44,7 +44,13 @@ export default class RootPage extends Component{
     }
     login(){
         Actions.reset('login')
-    }
+	}
+	profile(){
+		Actions.reset('profile')
+	}
+	about(){
+		Actions.reset('about')
+	}
 
 	render(){
 		let img = this.state.avatarSource == null? null:
@@ -55,7 +61,7 @@ export default class RootPage extends Component{
 					<List>	
 						<Header androidStatusBarColor="rgb(46,56,58)" style={{ height: 200, backgroundColor: 'rgb(46,56,58)'}}>
 							<Body style={{alignItems: 'center', justifyContent: 'center',}}>
-								<TouchableOpacity onPress={this.show.bind(this)}><Text style={{color: 'white'}}>Upload Image</Text></TouchableOpacity>{img}
+								<TouchableOpacity onPress={this.show.bind(this)}><Image style={styles.drawerImage} source={require('./image/icon.png')} /></TouchableOpacity>{img}
 								<Text style={{color: 'white'}}>Name : {this.user.userDatas.username}</Text>
 							</Body>
 						</Header>
@@ -63,6 +69,15 @@ export default class RootPage extends Component{
 							<Icon active name="md-home" />
 								<Text style={{color: 'black'}}>Home</Text>
 						</Button>
+						<Button active transparent dark style={styles.itemExit} onPress={() => this.profile()} >
+							<Icon active name="md-contact" />
+								<Text style={{color: 'black'}}>Profile</Text>
+						</Button>
+						<Button active transparent dark style={styles.itemExit} onPress={() => this.about()} >
+							<Icon active name="ios-information-circle" />
+								<Text style={{color: 'black'}}>About</Text>
+						</Button>
+
 					</List>
 				</Content>
 				<Footer>
