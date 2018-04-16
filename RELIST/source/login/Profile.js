@@ -11,18 +11,18 @@ import {
   BackHandler
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import { Container, Content, Header, Body, Icon, List, Button, Footer, FooterTab, Drawer, Left, Item, Input } from 'native-base';
+import { Container, Content, Header, Body, Icon, List, Footer, FooterTab, Drawer, Left, Item, Input, Card, CardItem, Right, Label, H3, Button } from 'native-base';
 import { StackNavigator, NavigationAction, TabNavigator,DrawerNavigator, DrawerItems } from 'react-navigation';
 import {observer, inject} from 'mobx-react/native';
 import SideBar from '../RootPage';
+import Modal from 'react-native-modal'
 
 @inject('appstate')
 @observer
 
 export default class RootPage extends Component{
 	static navigationOptions = {
-        header: null,
-        gesturesEnabled: false
+        header: null
     }
     constructor(props){
         super(props);
@@ -30,14 +30,14 @@ export default class RootPage extends Component{
         this.state = {
 			refreshing: false,
             avatarSource: null,
-            hidePassword: true
+            hidePassword: true,
+            isModalVisible: false
         }
         this.user = props.appstate.user;
     }
 
 	static navigationOptions = {
-		header: null,
-    	gesturesEnabled: false
+		header: null
 	}
 
 	index(){
@@ -59,56 +59,99 @@ export default class RootPage extends Component{
         this.setState({ hidePassword: !this.state.hidePassword });
     }
 
+    _showModal = () => this.setState({ isModalVisible: true})
+    _hideModal = () => this.setState({ isModalVisible: false})
+
 	render(){
 		return(
                     <Drawer ref={(ref) => { this._drawer = ref; }} content={<SideBar navigator={this._navigator} />} onClose={() => this.closeDrawer()} >	
-						<Header androidStatusBarColor="rgb(46,56,58)" style={{ backgroundColor: 'rgb(46,56,58)'}}>
-                        <Left>
-                            <Button transparent onPress={()=> this.openDrawer()}>
-                                <Icon name="md-menu" style={{color: '#fff'}} />
-                            </Button>
-                        </Left>
+						<Header dark noShadow androidStatusBarColor="rgb(46,56,58)" style={{ height: 200,backgroundColor: 'rgb(46,56,58)'}}>
+                        <Body style={{alignItems: 'center', justifyContent: 'center'}}>
+								<Image style={styles.drawerImage} source={require('../image/icon.png')} />
+							</Body>
                         <Item style={{marginLeft: -100, marginRight: 1.5, backgroundColor:'transparent'}}>
                         <Input editable={false} placeholderTextColor="white" style={{flex: 1, color:'white'}} />
                         {/* <Image source={require('../image/search.png')} style={{ height: 24, width:24}} />
                         <Input placeholder="Search" /> */}
                     </Item>   
                         </Header>
-                        <List style={{ height: 150, backgroundColor: 'rgb(46,56,58)'}}>
-                            <Body style={{alignItems: 'center', justifyContent: 'center'}}>
-								<Image style={styles.drawerImage} source={require('../image/icon.png')} />
-								<Text style={{color: 'white'}}>Name : {this.user.userDatas.username}</Text>
-							</Body>
-                        </List>
-						<Button active transparent dark style={styles.itemExit} onPress={() => this.index()} >
-							<Icon active name="md-home" />
-								<Text style={{color: 'black'}}>Home</Text>
-						</Button>
-                    <View style={ styles.textBoxBtnHolder}>
-                        <TextInput secureTextEntry = {this.state.hidePassword} style= { styles.textBox }
-                        />
-                        <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
-                            <Image source = {( this.state.hidePassword) ? require('../image/invisible.png') : require('../image/eye.png')} style = { styles.btnImage } />                    
-                            </TouchableOpacity>
-                    </View>
-                    <View style={styles.inputpass}>
-                    <TextInput
-                        placeholder='Password'
-                        placeholderTextColor='#000'
-                        underlineColorAndroid='transparent'
-                        returnKeyType="go"
-                        secureTextEntry = {this.state.hidePassword}
-                        autoCapitalize="none"
-                        onSubmitEditing={this.masuk}
-                        onChangeText={(text) => this.setState({passWord: text})}
-                        ref={(input) => this.passInput =input}
-                        onSubmitEditing={this.login}
-                    />
-                     <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
-                            <Image source = {( this.state.hidePassword) ? require('../image/invisible.png') : require('../image/eye.png')} style = { styles.btnImage } />                    
-                            </TouchableOpacity>
-                    </View>
-                    </Drawer>
+                        {/* <Content>
+          <Card style={{ width:340, alignSelf: 'center' }}><Text style={{ marginLeft: 20, marginTop:8}}>username</Text>
+            <CardItem style={{ borderRadius: 20, borderColor: 'red'}}>
+              <Text style={{ marginLeft: 20}}>{this.user.userDatas.username}</Text>
+             </CardItem>
+            </Card>
+            <Card style={{ height:80, width:340, alignSelf: 'center' }}><Text style={{ marginLeft: 20 , marginTop:8}}>Password</Text>
+             <CardItem>
+             <TextInput
+                 style={{ marginLeft: 20, color: 'black', bottom:13}}
+                 underlineColorAndroid='transparent'
+                 returnKeyType="go"
+                 secureTextEntry = {this.state.hidePassword}
+                 autoCapitalize="none"
+                 value={this.user.userDatas.pass}
+                 editable={false}ting={() => this.list.focus()}
+                 onChangeText={(teks) => this.setState({pass: teks})}
+             />       
+             <Right>
+              <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
+                     <Image source = {( this.state.hidePassword) ? require('../image/invisible.png') : require('../image/eye.png')} style = { styles.btnImage } />                    
+                     </TouchableOpacity>
+             </Right>
+             </CardItem>
+           </Card>
+        </Content> */}
+
+                   <TouchableOpacity onPress={this._showModal}>
+                <Text>Show Modal</Text>
+            </TouchableOpacity>
+            <Modal isVisible={this.state.isModalVisible}>
+                <View style={{height: 300, alignItems:'center', justifyContent: 'center', backgroundColor:'rgb(0, 131, 136)'}}>
+                    <View style={{ marginTop: 10}}/>
+                    <H3 style={{ color:'white', marginBottom: 10}}>Hello!</H3>
+                    <Content>
+          <Card style={{ height:80, width:320, alignSelf: 'center' }}><Text style={{ marginLeft: 20, marginTop:8}}>Username</Text>
+            <CardItem style={{ borderRadius: 20, borderColor: 'red'}}>
+              <TextInput
+                 style={{ marginLeft: 20, color: 'black'}}
+                 underlineColorAndroid='transparent'
+                 returnKeyType="go"
+                 autoCapitalize="none"
+                 value={this.user.userDatas.username}
+                 editable={false}ting={() => this.list.focus()}
+                 onChangeText={(teks) => this.setState({pass: teks})}
+             />
+             </CardItem>
+            </Card>
+            <Card style={{ height:80, width:320, alignSelf: 'center' }}><Text style={{ marginLeft: 20 , marginTop:8}}>Password</Text>
+             <CardItem>
+             <TextInput
+                 style={{ marginLeft: 20, color: 'black', bottom:13}}
+                 underlineColorAndroid='transparent'
+                 returnKeyType="go"
+                 secureTextEntry = {this.state.hidePassword}
+                 autoCapitalize="none"
+                 value={this.user.userDatas.pass}
+                 editable={false}ting={() => this.list.focus()}
+                 onChangeText={(teks) => this.setState({pass: teks})}
+             />       
+             <Right>
+              <TouchableOpacity activeOpacity = { 0.8 } style = { styles.visibilityBtn } onPress = { this.managePasswordVisibility }>
+                     <Image source = {( this.state.hidePassword) ? require('../image/invisible.png') : require('../image/eye.png')} style = { styles.btnImage } />                    
+                     </TouchableOpacity>
+             </Right>
+             </CardItem>
+           </Card>
+        </Content>
+        <Button
+                        style={{ justifyContent:'center',alignSelf:'center', width:80, backgroundColor:"rgb(46,56,58)",  marginTop : 5 }}
+                        onPress={this._hideModal}>
+            <Text style={{ color:'white', fontSize:16}}>Cancel</Text>
+        </Button>
+                <View style={{ marginBottom:20}} />
+                </View>
+            </Modal>
+        </Drawer>
 					
 		);
 	}
@@ -142,21 +185,21 @@ styles = StyleSheet.create({
    },
    visibilityBtn: {
        position: 'absolute',
-       right: 3,
-       height: 40,
+       height: 30,
        width: 35,
-       padding: 5
-   },
+       bottom: -7,
+       left: 220,
+    },
    
    btnImage: {
        resizeMode: 'contain',
-       height: '100%',
-       width: '100%'
+       height: '80%',
+       width: '80%',
    },
 
    inputpass: {
     width: 300,
-    color: '#000',
+    color: 'black',
     backgroundColor: 'rgb(168,243,187)',
     borderRadius: 25,
     paddingHorizontal: 16,
