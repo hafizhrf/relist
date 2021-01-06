@@ -8,7 +8,7 @@
     "android-dev": "adb reverse tcp:8081 tcp:8081 && react-native run-android"
   },
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "babel-preset-es2015": "^6.24.1",
     "cors": "^2.8.4",
     "es6-promise": "^4.2.2",
